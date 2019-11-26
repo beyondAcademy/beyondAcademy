@@ -1,0 +1,35 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'graduateProject/css/base/base.css'%}">
+
+{% include 'graduateProject/inc/base/docType.html' %}
+<html>
+<head>
+  {% include 'graduateProject/inc/base/meta.html' %}
+  <title>SAVERS</title>
+  {% include 'graduateProject/inc/base/scriptInclude.html' %}
+  {% block javascript %}
+  {% endblock %}
+</head>
+<body>
+    <div class="wrapper">
+    {% include 'graduateProject/base/header.html' %}
+
+        {% block content %}
+        {% endblock %}
+
+    {% include 'graduateProject/base/footer.html' %}
+
+    </div>
+<script type="text/javascript">
+    {% if messages %}
+    $(function(){
+        {% for message in messages %}
+        alert("{{ message }}")
+        {% endfor %}
+    })
+    {%  endif %}
+</script>
+</body>
+</html>
+

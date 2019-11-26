@@ -1,0 +1,72 @@
+.jumbotron {
+    text-shadow: black 50px;
+    color: pink;
+    background-image: url('/static/homepage/images/jumbotron3.jpg');
+    background-size: cover;
+    width: 100%;
+    height: auto;
+}
+
+.align-center-parent{
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.card-horizen{
+    border-color: black;
+    border-width : 1px;
+    border-style : solid;
+    border-radius : 10px;
+    height: 150px;
+    margin : 5px;
+}
+
+.card-horizen img {
+    margin-top : 35%;
+    margin-left: 9px;
+}
+
+.circle{
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+}
+
+.card-horizen-title{
+    margin-top : 15px;
+    margin-bottom : 15px;
+}
+
+.card-horizen-context{
+    font-size:9px;
+    vertical-align:middle;
+}
+
+.card-vertical{
+    border-color: black;
+    border-width : 1px;
+    border-style : solid;
+    border-radius : 15px;
+    height: 500px;
+    margin : 5px;
+}
+
+.card-vertical-thumbnail{
+    border : 1px black dashed;
+    margin-top : 5%;
+    width : 70%;
+    height : auto;
+}
+
+.card-vertical-list{
+    margin-top : 5px;
+}
+
+.credit{
+    border: 1px dotted red;
+    border-radius: 5px;
+    color: yellow;
+    background-color : #47b8e0;
+}

@@ -2,6 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81572665-b2e5-4bdf-b97a-9bc434f9a772" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/base/base.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/index/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/footer.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/header.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/base/doctype.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/base/meta.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/base/scriptinclude.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/index/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/index/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/beyondAcademy/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/beyondAcademy/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/beyondAcademy/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/beyondAcademy/urls.py" afterDir="false" />
@@ -23,7 +34,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -33,6 +44,11 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc" />
+      <recent name="$PROJECT_DIR$/graduateProject/static/graduateProject/css" />
+      <recent name="$PROJECT_DIR$/graduateProject/static/graduateProject/js" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/beyondAcademy" />
     </key>
@@ -56,6 +72,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="beyondAcademy.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -87,7 +104,7 @@
       <workItem from="1574754761075" duration="910000" />
       <workItem from="1574757061527" duration="78000" />
       <workItem from="1574757300388" duration="173000" />
-      <workItem from="1574757486765" duration="1416000" />
+      <workItem from="1574757486765" duration="5041000" />
     </task>
     <servers />
   </component>
