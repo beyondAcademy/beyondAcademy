@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81572665-b2e5-4bdf-b97a-9bc434f9a772" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/base/base.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/index/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/footer.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/header.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/base/doctype.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/base/meta.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/base/scriptinclude.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/index/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/index/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/beyondAcademy/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/beyondAcademy/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beyondAcademy/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/beyondAcademy/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +92,8 @@
       <workItem from="1574754761075" duration="910000" />
       <workItem from="1574757061527" duration="78000" />
       <workItem from="1574757300388" duration="173000" />
-      <workItem from="1574757486765" duration="5041000" />
+      <workItem from="1574757486765" duration="5064000" />
+      <workItem from="1574775061587" duration="420000" />
     </task>
     <servers />
   </component>
