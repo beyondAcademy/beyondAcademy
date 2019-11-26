@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'jg2he*&zsjlc4(op1@&4hvg5y3_e@64zj%v1sz4f^804&dom-x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -117,4 +118,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+
+
+if DEBUG:
+    STATIC_URL  = '/static/'
+    #STATIC_ROOT = 'static'
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    AWS_ACCESS_KEY_ID = 'AKIAIEQV5N7UBYUVIAPQ'
+    AWS_SECRET_ACCESS_KEY = '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'
+    AWS_STORAGE_BUCKET_NAME = 'beyondacademy-alpha'
+    AWS_DEFAULT_ACL = None
+    AWS_S3_REGION_NAME = 'ap-northeast-2'
+    AWS_S3_HOST = 's3.ap-northeast-2.amazonaws.com'
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400'
+    }
+    DEFAULT_FILE_STORAGE = 'beyondAcademy.storage_backends.MediaStorage'
+    STATICFILES_STORAGE = 'beyondAcademy.storage_backends.StaticStorage'
+    STATIC_URL = 'https://%s/%s/static/' % (AWS_S3_HOST, AWS_STORAGE_BUCKET_NAME)
+    MEDIA_URL = 'https://%s/%s/media/' % (AWS_S3_HOST, AWS_STORAGE_BUCKET_NAME)
+
