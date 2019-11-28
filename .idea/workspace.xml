@@ -2,30 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81572665-b2e5-4bdf-b97a-9bc434f9a772" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/graduateProject/forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/matching/question_request.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/matching/question_request_write.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/matching/question_request.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/matching/question_request_write.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/matching/question_answer_view.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/matching/question_request.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/matching/question_request_answer_write.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/matching/question_request_write.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/user/signin.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/user/signup.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/user/signup_complete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/views/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/views/index_views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/views/matching_views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/views/total_views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/views/user_views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beyondAcademy/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/beyondAcademy/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/views.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -118,7 +96,7 @@
       <workItem from="1574757300388" duration="173000" />
       <workItem from="1574757486765" duration="5064000" />
       <workItem from="1574775061587" duration="6404000" />
-      <workItem from="1574909144922" duration="434000" />
+      <workItem from="1574909144922" duration="498000" />
     </task>
     <servers />
   </component>
