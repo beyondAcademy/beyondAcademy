@@ -29,12 +29,12 @@
 
     </ul>
     <ul class="nav navbar-nav ml-auto">
-      <li><a href="signup_test" style="font-color:black; margin-right:20px;"><i class="fas fa-user-plus"></i></span> Sign Up</a></li>
+      <li><a href="signup" style="font-color:black; margin-right:20px;"><i class="fas fa-user-plus"></i>Sign Up</a></li>
       {% if user.username %}
-      <li><a href="logout_test" style="font-color:black; margin-right:20px;"><i class="fas fa-sign-out-alt"></i></span>Sign Out</a></li>
-      <li><a href="profile" style="font-color:black; margin-right:20px;"><i class="fas fa-cog"></i></span></a></li>
+      <li><a href="signout" style="font-color:black; margin-right:20px;"><i class="fas fa-sign-out-alt"></i>Sign Out</a></li>
+      <li><a href="profile" style="font-color:black; margin-right:20px;"><i class="fas fa-cog"></i></a></li>
       {% else %}
-      <li><a href="login_test" style="font-color:black; margin-right:20px;"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
+      <li><a href="signin/" style="font-color:black; margin-right:20px;"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
       {% endif %}
     </ul>
   </div>

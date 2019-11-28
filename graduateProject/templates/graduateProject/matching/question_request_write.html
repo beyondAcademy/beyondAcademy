@@ -1,0 +1,36 @@
+{% extends 'graduateProject/base/base.html' %}
+
+{% block content %}
+{% include 'graduateProject/inc/matching/question_request_write.html' %}
+<form action="" method="POST" name="form-context">
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+    </table>
+    <input type="hidden" name="user_id" id="user_id" value="{{ user.id }}">
+    <input type="hidden" name="write_date_browser" id="write_date_browser" value="">
+    <input type="submit" onclick="OnclickSubmit()" value="제출">
+</form>
+
+<script type="text/javascript">
+$(document).ready(function() {
+});
+
+Date.prototype.yyyymmdd = function() {
+  var mm = this.getMonth() + 1; // getMonth() is zero-based
+  var dd = this.getDate();
+
+  return [this.getFullYear(),
+          (mm>9 ? '' : '0') + mm,
+          (dd>9 ? '' : '0') + dd
+         ].join('');
+};
+
+var date = new Date();
+
+function OnclickSubmit(){
+    $("#write_date_browser").val(date.yyyymmdd());
+    document.form-context.submit();
+}
+</script>
+{% endblock %}

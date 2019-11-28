@@ -1,0 +1,270 @@
+{% extends 'graduateProject/base/base.html' %}
+
+
+{% block content %}
+{% include 'graduateProject/inc/matching/question_request.html' %}
+
+
+<div class="context-container">
+    {% csrf_token %}
+    <div class="row">
+        <!--        <div class="col-11">-->
+        <!--            <div class="active-cyan-3 active-cyan-4 mb-4">-->
+        <!--                <input class="form-control" type="text" placeholder="Search" aria-label="Search">-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div class="col-1">-->
+        <!--            <button type="button" class="btn btn-primary btn-custom">조회</button>-->
+        <!--        </div>-->
+        <div class="col-md-6 col-lg-4">
+            <div class="wrapper-checkbox">
+                <h3>직군</h3>
+                <div class="checkboxes">
+                    <div class="row">
+                        {% for field in fields %}
+                        <div class="col-4">
+                            <input type="checkbox" name="fields" id="field-{{ field.key }}" onChange="checkboxOnchange()">
+                            <label for="field-{{ field.key }}" class="font-scailing">{{ field.val }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="wrapper-checkbox">
+                <h3>직군</h3>
+                <div class="checkboxes">
+                    <div class="row">
+                        {% for tasktype in tasktypes %}
+                        <div class="col-4">
+                            <input type="checkbox" name="tasktypes" id="task-type-{{ tasktype.key }}" onclick='checkboxOnchange()'>
+                            <label for="task-type-{{ tasktype.key }}" class="font-scailing">{{ tasktype.val }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="wrapper-checkbox">
+                <h3>역할</h3>
+                <div class="checkboxes">
+                    <div class="row">
+                        {% for lifestyle in lifestyles %}
+                        <div class="col-4">
+                            <input type="checkbox" name="lifestyles" id="life-style-{{ lifestyle.key }}" onclick='checkboxOnchange()'>
+                            <label for="life-style-{{ lifestyle.key }}" class="font-scailing">{{ lifestyle.val }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" id="row-context">
+        {% for questionRequest in questionRequests %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card-vertical">
+                <div class="row">
+                    <div class="col-12 center">
+                        {% if user.id and user.id != questionRequest.user_id %}
+                        <div class="thumbnail" onclick="location.href='{% url 'questionRequestAnswerWrite' questionRequest.id %}'">
+                            {% autoescape off %}
+                            {{ questionRequest.content|safe|linebreaks }}
+                            {% endautoescape %}
+                        </div>
+                        {% else %}
+                        <div class="thumbnail">
+                            {% autoescape off %}
+                            {{ questionRequest.content|safe|linebreaks }}
+                            {% endautoescape %}
+                        </div>
+                        {% endif %}
+
+                    </div>
+
+                    {% for questionRequestAnswer in questionRequest.questionRequestAnswers %}
+                    <div class="col-5 amount center">
+                        <div class="amount-shape font-scailing">
+                            {{ questionRequestAnswer.amount }}
+                        </div>
+                    </div>
+                    <div class="col-5 answerUser center">
+                        {{ questionRequestAnswer.answer_user__last_name }}
+                    </div>
+                    <div class="col-2 select_yn center">
+                        {% if questionRequestAnswer.select_yn == 'Y' and user.id != questionRequest.user_id%}
+                        <i class="fas fa-check"></i>
+                        {% elif questionRequestAnswer.select_yn == 'Y' and user.id == questionRequest.user_id %}
+                        <a href="{% url 'answerView' questionRequestAnswer.id  %}">읽기</a>
+                        {% elif questionRequestAnswer.select_yn == 'N' and user.id == questionRequest.user_id %}
+                        <span class="span-submit" onclick="answerSelectOnclick({{ questionRequestAnswer.id }})">
+                            채택
+                        </span>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <a href="questionRequestWrite">
+                <button type="button" class="btn btn-outline-info btn-custom">요청서 작성</button>
+            </a>
+        </div>
+        <div class="col-6">
+            <button type="button" class="btn btn-outline-info btn-custom">내 요청서 보기</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    // using jQuery
+      function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+      $(document).ready(function() {
+        var csrftoken = getCookie('csrftoken');
+        $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+          }
+        });
+      });
+
+    function answerSelectOnclick(questionRequestAnswerId) {
+        var timestamp = new Date().getTime()
+        timestamp = timestamp.toString();
+        window.location.href = '/questionRequestAnswerSelect/' + questionRequestAnswerId + '/' + timestamp + '/{{ user.id }}';
+    }
+
+    function checkboxOnchange() {
+        var fields = [];
+        $('input[name="fields"]:checked').each(function(index) {
+            var bChecked = $(this).prop('checked');
+            var id = $(this).attr('id');
+            var value = $(this).val();
+            fields.push('[' + index + '](' + bChecked + ')' + id + ':' + value);
+        });
+
+        var tasktypes = [];
+        $('input[name="tasktypes"]:checked').each(function(index) {
+            var bChecked = $(this).prop('checked');
+            var id = $(this).attr('id');
+            var value = $(this).val();
+            tasktypes.push('[' + index + '](' + bChecked + ')' + id + ':' + value);
+        });
+
+        var lifestyles = [];
+        $('input[name="lifestyles"]:checked').each(function(index) {
+            var bChecked = $(this).prop('checked');
+            var id = $(this).attr('id');
+            var value = $(this).val();
+            lifestyles.push('[' + index + '](' + bChecked + ')' + id + ':' + value);
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '/questionRequestCheckbox',
+            data: {
+                'fields': fields,
+                'tasktypes': tasktypes,
+                'lifestyles': lifestyles
+            },
+            success: function(data) {
+                checkboxAjaxSuccess(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("arjax error : " + textStatus + "\n" + errorThrown);
+            },
+        });
+    }
+
+    function clickQuestion(questionId){
+        location.href="questionRequestAnswerWrite/"+questionId
+    }
+
+    function selectAnswer(answerId){
+        location.href="answerView/"+questionId
+    }
+
+    function checkboxAjaxSuccess(questionRequestList) {
+        context = '';
+        for(var i=0; i<questionRequestList.length; i++){
+            context += '<div class="col-md-6 col-lg-4">';
+            context += '<div class="card-vertical">';
+            context += '<div class="row">';
+            context += '<div class="col-12 center">';
+
+            if( {{ user.id }} && {{ user.id }} != questionRequestList[i].user_id){
+                context += '<div class="thumbnail" onclick="clickQuestion(' + questionRequestList[i].pk + ')">';
+                context += questionRequestList[i].content;
+                context += '</div>';
+            } else {
+                context += '<div class="thumbnail">';
+                context += questionRequestList[i].content;
+                context += '</div>';
+            }
+
+            context += '</div>';
+
+            for(j=0; j<questionRequestList[i].questionRequestAnswers.length; j++){
+                context += '<div class="col-5 amount center">';
+                context +=  '<div class="amount-shape font-scailing">';
+                context +=  questionRequestList[i].questionRequestAnswers[j].amount;
+                context +=  '</div>';
+                context += '</div>';
+                context += '<div class="col-5 answerUser center">';
+                context +=  questionRequestList[i].questionRequestAnswers[j].last_name;
+                context += '</div>';
+                context += '<div class="col-2 select_yn center">';
+                if(questionRequestList[i].questionRequestAnswers[j].select_yn == 'Y' && {{ user.id }} != questionRequestList[i].user_id ){
+                    context += '<i class="fas fa-check"></i>';
+                }
+                else if(questionRequestList[i].questionRequestAnswers[j].select_yn == 'Y' && {{ user.id }} == questionRequestList[i].user_id){
+                    contexet += '<a href="readAnswer(' + questionRequestList[i].questionRequestAnswers[j].id + ')"> 읽기 </a>';
+                }
+                else if(questionRequestList[i].questionRequestAnswers[j].select_yn == 'N' && {{ user.id }} == questionRequestList[i].user_id){
+                    context += '<span class="span-submit" onclick="answerSelectOnclick('+ questionRequestList[i].questionRequestAnswers[j].id +')">';
+                    context += '채택';
+                    context += '</span>';
+                }
+                context += '</div>';
+            }
+
+            context += '</div>';
+            context += '</div>';
+            context += '</div>';
+            $('#row-context').html(context);
+        }
+    }
+
+</script>
+
+{% endblock %}

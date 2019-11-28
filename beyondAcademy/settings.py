@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -38,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
+    'graduateProject',
 ]
 
 MIDDLEWARE = [
@@ -82,6 +86,7 @@ DATABASES = {
 }
 
 
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -118,6 +123,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+##user setting
+AUTH_USER_MODEL = 'graduateProject.user'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
 
 
 if DEBUG:

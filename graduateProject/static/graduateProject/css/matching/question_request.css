@@ -1,0 +1,124 @@
+.wrapper-checkbox {
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.active-pink-4 input[type=text]:focus:not([readonly]) {
+    border: 1px solid #f48fb1;
+    box-shadow: 0 0 0 1px #f48fb1;
+}
+
+.active-pink-3 input[type=text] {
+    border: 1px solid #f48fb1;
+    box-shadow: 0 0 0 1px #f48fb1;
+}
+
+.active-purple-4 input[type=text]:focus:not([readonly]) {
+    border: 1px solid #ce93d8;
+    box-shadow: 0 0 0 1px #ce93d8;
+}
+
+.active-purple-3 input[type=text] {
+    border: 1px solid #ce93d8;
+    box-shadow: 0 0 0 1px #ce93d8;
+}
+
+.active-cyan-4 input[type=text]:focus:not([readonly]) {
+    border: 1px solid #4dd0e1;
+    box-shadow: 0 0 0 1px #4dd0e1;
+}
+
+.active-cyan-3 input[type=text] {
+    border: 1px solid #4dd0e1;
+    box-shadow: 0 0 0 1px #4dd0e1;
+}
+
+.context-container {
+    margin: 0% 1% 0% 1%;
+}
+
+.font-scailing {
+    font-size: 0.8vw;
+}
+
+.btn-custom {
+    width: 95%;
+}
+
+.card-vertical {
+    border-color: purple;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 15px;
+    height: 500px;
+    margin: 5px;
+    padding: 0px 20px;
+}
+
+.thumbnail {
+    width: 50%;
+    height: 300px;
+    margin: 5px auto;
+    overflow: auto;
+    border: 1px gray dashed;
+}
+
+.center {
+    text-align: center;
+}
+
+
+.amount {
+    padding: 0px 60px;
+}
+
+.amount-shape {
+    border-radius: 40%;
+    background-color: aquamarine;
+    color: purple;
+}
+
+.fa-check {
+    color: green;
+}
+
+
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}

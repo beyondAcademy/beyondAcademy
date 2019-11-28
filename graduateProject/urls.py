@@ -16,24 +16,23 @@ urlpatterns = [
     # path('profile', views.profileView, name='profile'),
 
     #
-    # ##user urls
-    # path('signup_test', user_register_page_test, name='registerTest'),
-    # path('user_register_test', user_register_page_test, name='registerTest'),
-    # path('homepage/user_register_idcheck_test/', user_register_idcheck_test, name='registeridcheckTest'),
-    # path('user_register_res_test/', user_register_result_test, name='registerresTest'),
-    # path('user_register_completed_test/', user_register_completed_test, name='registercompletedTest'),
-    # path('login_test/', auth_views.LoginView.as_view(template_name='homepage/test/login_test.html'), name='loginTest'),
-    # path('logout_test/', auth_views.LogoutView.as_view(), name='logoutTest'),
+    ##user urls
+    path('signup', signup_page, name='register'),
+    path('signup_idcheck', signup_idcheck, name='signup_idcheck'),
+    path('signup_result', signup_result, name='signup_result'),
+    path('signup_completed', signup_completed, name='signup_completed'),
+    path('signin/', auth_views.LoginView.as_view(template_name='graduateProject/user/signin.html'), name='signin'),
+    path('signout', auth_views.LogoutView.as_view(), name='logout'),
     #
-    # ##matching urls
-    # ####questionRequest urls
-    # path('questionRequest', views.questionRequest, name='questionRequest'),
-    # path('questionRequestWrite', views.questionRequestWriteView, name='questionRequestWrite'),
-    # path('questionRequestAnswerWrite/<int:id>', views.questionRequestAnswerWriteView, name='questionRequestAnswerWrite'),
-    # path('questionRequestAnswerWriteRes', views.questionRequestAnswerWriteResView, name='questionRequestAnswerWriteRes'),
-    # path('questionRequestAnswerSelect/<int:questionRequestAnswerId>/<str:timestamp>/<int:id>', views.questionRequestAnswerSelectView, name='questionRequestAnswerSelect'),
-    # path('answerView/<int:questionRequestAnswerId>', views.answerViewView, name='answerView'),
-    # path('questionRequestCheckbox', views.questionRequestCheckboxView, name='questionRequestCheckbox'),
+    ##matching urls
+    ####questionRequest urls
+    path('questionRequest', views.questionRequest, name='questionRequest'),
+    path('questionRequestWrite', views.questionRequestWriteView, name='questionRequestWrite'),
+    path('questionRequestAnswerWrite/<int:id>', views.questionRequestAnswerWriteView, name='questionRequestAnswerWrite'),
+    path('questionRequestAnswerWriteRes', views.questionRequestAnswerWriteResView, name='questionRequestAnswerWriteRes'),
+    path('questionRequestAnswerSelect/<int:questionRequestAnswerId>/<str:timestamp>/<int:id>', views.questionRequestAnswerSelectView, name='questionRequestAnswerSelect'),
+    path('answerView/<int:questionRequestAnswerId>', views.answerViewView, name='answerView'),
+    path('questionRequestCheckbox', views.questionRequestCheckboxView, name='questionRequestCheckbox'),
     #
     # ##liveinterview urls
     # path(r'liveinterviewList/<int:userId>', views.liveinterviewListView, name='liveinterviewList'),

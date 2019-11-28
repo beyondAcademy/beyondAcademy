@@ -1,0 +1,69 @@
+{% extends 'graduateProject/base/base.html' %}
+
+{% block content %}
+
+<div style="margin-left:100px;">
+    <div class="row block-center">
+        <div class="card-box col-5">
+            <form action="." id="login_form" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-12 center">
+                        <h2>login</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 right">ID</div>
+                    <div class="ml-1 col-8">
+                        <input type="text" name="username" id="username" size="12">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 right">PASSWORD</div>
+                    <div class="ml-1 col-8">
+                        <input type="text" name="password" id="password" size="12">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 center">
+                        <input type="button" value="login" onClick="login()"/>
+                        <input type="button" value="register" onClick="location.href= '{% url 'signin' %}'" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 center">
+                        <h4>if you don't have ID yet, please register first</h4>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('input').keydown(function(e){
+            if(e.which == 13){
+                $('form').submit();
+            }
+        });
+    });
+
+    function login() {
+        if(!$('#username').val())
+        {
+            alert("please write ID");
+            return;
+        }
+        if(!$('#password').val())
+        {
+            alert("please write PW");
+            return;
+        }
+
+        $('#login_form').submit();
+    }
+
+</script>
+{% endblock %}

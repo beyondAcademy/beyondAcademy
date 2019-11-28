@@ -1,0 +1,192 @@
+{% extends 'graduateProject/base/base.html' %}
+
+{% block content %}
+<div style = "margin: 80px;">
+    <div class="row block-center">
+        <div class="card-box col-6">
+            <form action="signup_result" id="register_form" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="phone" id="phone" value=""/>
+                <input type="hidden" name="email" id="email" value=""/>
+                <div class="row">
+                    <div class="col-12">
+                        <h2>register</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="ml-1 col-11">
+                        ID :
+                        <span class="margin-left-10">
+                        <input type="text" name="username" id="username" value="" size="8" />
+                        <input type="button" value="confirm" onClick="idCheck()"/>
+                        <span id="idcheck-result"></span>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="ml-1 col-11">Password:
+                        <span class="margin-left-10">
+                        <input type="password" name="password" id="password" value="" size="8" />
+                    </span>
+                        <br/>
+                        <span style="font-size: 0.7em">
+                        password must be over 8 characters
+                    </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="ml-1 col-11">password_check:
+                        <span class="margin-left-10">
+                        <input type="password" name="password_check" id="password_check" value="" size="8" />
+                    </span>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="ml-1 col-11"> name:
+                        <span class="margin-left-10">
+                        <input type="text" name="last_name" id="last_name" value="" size="8"/>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="ml-1 col-11">
+                        E-mail :
+                        <span class="margin-left-10">
+                        <input type="text" id="email_id" value="" size="8"/>
+                        @<input type="text" id="email_domain" value="" size="8" />
+                        <select name="email_selection" id="email_selection" onChange="changeEmailDomain()">
+                            <option value="" selected="selected"> choose </option>
+                            <option value="naver.com">naver.com</option>
+                            <option value="hanmail.net">hanmail.net</option>
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="me.com">me.com</option>
+                        </select>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="ml-1 col-11">phone number:
+                        <span class="margin-left-10">
+                        <input type="text" id="phone1" value="" size="3" /> -
+                        <input type="text" id="phone2" value="" size="4" /> -
+                        <input type="text" id="phone3" value="" size="4" />
+                    </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="ml-1 col-11"> birth date :
+                        <span class="margin-left-10">
+                        <input type="text" name="birth_year" id="birth_year" value="" size="4">year
+                        <select name="birth_month" id="birth_month">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select> month
+                        <input type="text" name="birth_day" id="birth_day" value="" size="2" /> day
+                    </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 center">
+                        <input type="button" value="register" onClick="userRegister()"/>
+                        <input type="button" value="cancel" onClick="cancelUserRegister()"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function idCheck() {
+    if (!$('#username').val()){
+        alert("please enter the ID");
+        return;
+    }
+
+    $.ajax({
+        type:"POST",
+        url:"signup_idcheck",
+        data: {
+            'username': $('#username').val(),
+            'csrfmiddlewaretoken': $("input[name=csrfmiddlewaretoken]").val()
+            },
+            success: function(response) {
+                $('#idcheck-result').html(response);
+            },
+        });
+}
+
+function changeEmailDomain() {
+    var result = confirm("realy want to cancel?");
+
+    if(result){
+        $(location).attr('href', '/graduateProject/login');
+    }
+}
+
+function userRegister(){
+    if(!$('#username').val()){
+        alert("please enter the ID");
+        return;
+    }
+
+    if(!$('#IDCheckResult').val()){
+        alert("please confirm your ID");
+        return;
+    }
+
+    if(!$('#password').val()){
+        alert("please enter the PW");
+        return;
+    }
+
+    if($('#password').val() != $('#password_check').val()){
+        alert("wrong password");
+        return;
+    }
+
+    if(!$('#last_name').val()){
+        alert("please enter the last_name");
+        return;
+    }
+
+    if(!$('#phone1').val() || !$('#phone2').val() || !$('#phone3').val()){
+        alert("please enter the phone");
+        return;
+    }
+
+    if(!$('#email_id').val() || !$('#email_domain').val()){
+        alert("please enter the email");
+        return;
+    }
+
+    if(!$('#birth_year').val() || !$('#birth_month').val() || !$('#birth_day').val()){
+        alert("please enter the birth day");
+        return;
+    }
+
+    $('#register_form').submit();
+}
+
+</script>
+{% endblock %}

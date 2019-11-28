@@ -1,0 +1,22 @@
+{% extends 'graduateProject/base/base.html' %}
+
+{% block content %}
+{% include 'graduateProject/inc/matching/question_request_write.html' %}
+<form action="{% url 'questionRequestAnswerWriteRes' %}" method="POST" name="form-context">
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+    </table>
+    <input type="hidden" name="request_no" id="request_no" value="{{ request_no }}">
+    <input type="hidden" name="user_id" id="user_id" value="{{ user.id }}">
+    <input type="submit" onclick="OnclickSubmit()" value="제출">
+</form>
+
+<script type="text/javascript">
+$(document).ready(function(){
+$('#id_content').val('{% autoescape off %}{{questionRequest.content|safe|linebreaks}}{% endautoescape %}');
+});
+
+
+</script>
+{% endblock %}
