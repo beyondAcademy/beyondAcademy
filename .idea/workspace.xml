@@ -22,6 +22,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/beyondAcademy/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/beyondAcademy/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graduateProject/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/header.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graduateProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graduateProject/views.py" beforeDir="false" />
@@ -117,7 +118,7 @@
       <workItem from="1574757300388" duration="173000" />
       <workItem from="1574757486765" duration="5064000" />
       <workItem from="1574775061587" duration="6404000" />
-      <workItem from="1574909144922" duration="418000" />
+      <workItem from="1574909144922" duration="434000" />
     </task>
     <servers />
   </component>
