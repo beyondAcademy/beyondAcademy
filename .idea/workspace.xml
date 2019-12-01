@@ -2,8 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81572665-b2e5-4bdf-b97a-9bc434f9a772" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/liveinterview/liveinterview_list.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/liveinterview/liveinterview_write.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/profile/profile.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/liveinterview/liveinterview_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/liveinterview/liveinterview_write.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/profile/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/liveinterview/liveinterview_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/liveinterview/liveinterview_view.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/liveinterview/liveinterview_write.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/profile/profile.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graduateProject/views/liveinterview_views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/beyondAcademy/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/beyondAcademy/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/beyondAcademy/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/beyondAcademy/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/base/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/base/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/index/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/index/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/base/scriptinclude.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/base/scriptinclude.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/matching/question_request_write.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/matching/question_request_write.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/matching/question_answer_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/matching/question_answer_view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/user/signin.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/user/signin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/user/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/user/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/user/signup_complete.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/user/signup_complete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/views/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/views/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graduateProject/views/user_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/views/user_views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,15 +57,16 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/graduateProject" />
-      <recent name="$PROJECT_DIR$/beyondAcademy" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/graduateProject/templates/graduateProject" />
       <recent name="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc" />
       <recent name="$PROJECT_DIR$/graduateProject/static/graduateProject/css" />
       <recent name="$PROJECT_DIR$/graduateProject/static/graduateProject/js" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/graduateProject/templates/graduateProject/chatting" />
+      <recent name="$PROJECT_DIR$/graduateProject" />
+      <recent name="$PROJECT_DIR$/beyondAcademy" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -96,7 +122,9 @@
       <workItem from="1574757300388" duration="173000" />
       <workItem from="1574757486765" duration="5064000" />
       <workItem from="1574775061587" duration="6404000" />
-      <workItem from="1574909144922" duration="498000" />
+      <workItem from="1574909144922" duration="2528000" />
+      <workItem from="1574940470685" duration="1210000" />
+      <workItem from="1575044645308" duration="18502000" />
     </task>
     <servers />
   </component>

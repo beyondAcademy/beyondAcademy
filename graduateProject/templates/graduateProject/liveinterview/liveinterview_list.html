@@ -1,0 +1,72 @@
+{% extends 'graduateProject/base/base.html' %}
+
+{% block content %}
+{% include 'graduateProject/inc/liveinterview/liveinterview_list.html' %}
+
+<div class="container">
+
+<div class="container">
+    <div class="row">
+        <table class="table table-striped table-context">
+            <thead>
+            <tr class="tr-context">
+                <th>조회수</th>
+                <th colspan="2">제목</th>
+                <th>댓글</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>열람여부</th>
+            </tr>
+            </thead>
+            <tbody id="boardListTbody centered">
+            {% for interview in interviewList %}
+                {% if interview.id in selectInterviewList or user.id == interview.write_user %}
+                <tr onclick="location.href='{% url 'liveinterviewView' interview.id %}'">
+                {% else %}
+                <tr onclick="interviewSelectOnclick({{ interview.id }})">
+                {% endif %}
+                    <td>
+                        {{ interview.read_count }}
+                    </td>
+                    <td colspan="2">
+                        {{ interview.title }}
+                    </td>
+                    <td>
+                        {{ interview.replyCount }}
+                    </td>
+                    <td>
+                        {{ interview.write_user__last_name }}
+                    </td>
+                    <td>
+                        {{ interview.write_dttm }}
+                    </td>
+                    <td>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-center">
+            <nav aria-label="...">
+                <ul class="pagination" id="pagination">
+                </ul>
+                <a href="{% url 'liveinterviewWrite' %}" class="btn btn-primary pull-right">글쓰기</a>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+    function interviewSelectOnclick(interviewId){
+        var timestamp = new Date().getTime()
+        timestamp = timestamp.toString();
+        window.location.href = '/liveinterviewSelect/' + interviewId + '/' + {{ user.id }} + '/' + timestamp;
+    }
+</script>
+
+
+{% endblock %}

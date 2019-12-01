@@ -1,0 +1,76 @@
+{% extends 'graduateProject/base/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <table class="table table-striped"
+               style="text-align: center; border: 1px solid #dddddd; word-break: break-all; margin-bottom: 5px;">
+            <thead>
+            <tr>
+                <th colspan="4" style="background-color: #eeeeee; text-align: center;">게시판 글</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td style="width: 20%;">글제목</td>
+                <td colspan="3" align="left">
+                    {{ interview.title }}
+                </td>
+            </tr>
+            <tr>
+                <td>작성자</td>
+                <td colspan="3" align="left">
+                    {{ interview.write_user }}
+                </td>
+            </tr>
+            <tr>
+                <td>작성일자</td>
+                <td colspan="3" align="left">
+                    {{ interview.write_dttm }}
+                </td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td colspan="3" style="min-height: 200px; text-align: left;">
+                    <p>
+                        {% autoescape off %}
+                        {{ interview.content }}
+                        {% endautoescape %}
+                    </p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="margin-bottom: 10px;" align="right">
+        </div>
+
+        <table class="table table-striped">
+            <tbody id="replyListTable" >
+            </tbody>
+        </table>
+    </div>
+
+    <form name="replyForm" id="replyForm">
+        <table class="table table-condensed">
+            <tbody>
+            <tr>
+                <td style="width: 90%;"><textarea class="form-control" placeholder="댓글은 비동기적으로 작성됩니다. 주기적으로 새로고침 부탁드립니다." name="replyContent"
+                                                  id="replyContent" maxlength="2048" style="height: 150px;"></textarea>
+                </td>
+                <td style="width: 10%; vertical-align: bottom;" align="center">
+                    <input type="button" onclick="replySubmit()" class="btn btn-primary pull-right" value="댓글작성">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="hidden" name="boardNo" id="boardNo" value="${boardNo}">
+    </form>
+    <div class="row" style="align-: right">
+        <a href="/board.jsp?boardName=${boardName}" class="btn">목록</a>
+            <a href="/boardWrite.jsp?boardName=${boardName}&boardNo=${boardVO.boardNo}&writeFlag=3" class="btn">답글달기</a>
+    </div>
+
+</div>
+
+{% endblock %}

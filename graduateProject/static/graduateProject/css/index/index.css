@@ -1,16 +1,10 @@
 .jumbotron {
     text-shadow: black 50px;
     color: pink;
-    background-image: url('/static/homepage/images/jumbotron3.jpg');
+    background-image: url('/static/graduateProject/images/jumbotron3.jpg');
     background-size: cover;
     width: 100%;
     height: auto;
-}
-
-.align-center-parent{
-    align-content: center;
-    align-items: center;
-    text-align: center;
 }
 
 

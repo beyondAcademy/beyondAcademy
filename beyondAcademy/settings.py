@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storages',
     'graduateProject',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
@@ -78,13 +79,20 @@ WSGI_APPLICATION = 'beyondAcademy.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    'default' : {
+        'ENGINE' : 'django.db.backends.mysql',
+        'NAME' : 'beyondAcademy',
+        'USER' : 'beyondAcademy',
+        'PASSWORD' : 'beyondACADEMY2019!2)!',
+        'PORT' : '3306',
+        'HOST' : 'beyondacademy.ccjqwu8rb71u.ap-northeast-2.rds.amazonaws.com',
+        'OPTIONS' : {
+            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
-
 
 
 # Password validation
@@ -148,4 +156,3 @@ else:
     STATICFILES_STORAGE = 'beyondAcademy.storage_backends.StaticStorage'
     STATIC_URL = 'https://%s/%s/static/' % (AWS_S3_HOST, AWS_STORAGE_BUCKET_NAME)
     MEDIA_URL = 'https://%s/%s/media/' % (AWS_S3_HOST, AWS_STORAGE_BUCKET_NAME)
-

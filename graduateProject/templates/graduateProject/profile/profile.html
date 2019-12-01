@@ -1,0 +1,114 @@
+{% extends 'graduateProject/base/base.html' %}
+
+
+{% block content %}
+    {% include 'graduateProject/inc/profile/profile.html' %}
+
+    <div class="container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="image-wrapper">
+                    <img src="https://ptetutorials.com/images/user-profile.png" alt="" class="profile-image"/>
+                </div>
+                <div>
+                    <div class="profile-name">
+                        test1
+                    </div>
+                    <div class="recharge">
+                        <button type="button" class="btn btn-outline-primary btn-recharge" onclick="recharge()">크레딧 충전
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="trade-list centered">
+                <h5 class="trade-list-title"> 크레딧 사용내역</h5>
+                <table class="table trade-table">
+                    <thead>
+                    <tr>
+                        <th scope="col">날짜</th>
+                        <th scope="col">내용</th>
+                        <th scope="col">금액</th>
+                        <th scope="col">통화</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for tradePerUser in tradePerUserList %}
+                        {% if tradePerUser.trade_flag == '001' %}
+                            <tr class="take">
+                                <td> {{ tradePerUser.date }}</td>
+                                <td> {{ tradePerUser.trade_type }}</td>
+                                <td> {{ tradePerUser.amount }}</td>
+                                <td> {{ tradePerUser.currency }}</td>
+                            </tr>
+                        {% elif tradePerUser.trade_flag == '002' %}
+                            <tr class="give">
+                                <td> {{ tradePerUser.date }}</td>
+                                <td> {{ tradePerUser.trade_type }}</td>
+                                <td> {{ tradePerUser.amount }}</td>
+                                <td> {{ tradePerUser.currency }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $(document).ready(function () {
+            var csrftoken = getCookie('csrftoken');
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+        });
+
+        function recharge() {
+            var credit = prompt('얼마를 충전하시겠습니까?');
+
+            var timestamp = new Date().getTime()
+            timestamp = timestamp.toString();
+
+            $.ajax({
+                type: 'POST',
+                url: '/rechargeCredit',
+                data: {
+                    'timestamp': timestamp,
+                    'credit': credit,
+                    'id': {{ user.id }}
+                },
+                success: function (data) {
+                    alert(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("arjax error : " + textStatus + "\n" + errorThrown);
+                },
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,53 @@
+.profile-card{
+    margin: 0 auto;
+    border : 1px solid black;
+    width : 400px;
+    height : 800px;
+}
+
+.profile-header{
+    padding : 30px 20px;
+}
+
+.profile-image{
+    width : 130px;
+    height : 130px;
+}
+
+.profile-header>div{
+    display: inline-block;
+    float: left;
+}
+
+.profile-name{
+    margin: 30px 40px;
+}
+
+.trade-list{
+    margin: 120px 5px;
+}
+
+.recharge{
+    margin-left: 40px;
+    display : block;
+}
+
+.btn-recharge{
+    width: 150px;
+}
+
+.centered{
+    text-align: center;
+}
+
+.trade-list-title{
+    color: #f48fb1;
+}
+
+.take{
+    color:blue;
+}
+
+.give{
+    color:red;
+}

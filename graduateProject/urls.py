@@ -1,6 +1,7 @@
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 
 
@@ -13,17 +14,20 @@ urlpatterns = [
     path('index', views.index, name='index'),
     # path('findSenior', views.findSenior, name='findSenior'),
     # path('chatting', views.chattingView, name='chatting'),
-    # path('profile', views.profileView, name='profile'),
 
-    #
+
+
     ##user urls
-    path('signup', signup_page, name='register'),
+    path('signup', signup_page, name='signup'),
     path('signup_idcheck', signup_idcheck, name='signup_idcheck'),
     path('signup_result', signup_result, name='signup_result'),
     path('signup_completed', signup_completed, name='signup_completed'),
     path('signin/', auth_views.LoginView.as_view(template_name='graduateProject/user/signin.html'), name='signin'),
     path('signout', auth_views.LogoutView.as_view(), name='logout'),
-    #
+    # path('profile/<int:id>/', views.profileView, name='profile'),
+    url(r'^profile/(?P<id>\d+)', views.profileView, name='profile'),
+    path('rechargeCredit', views.rechargeCreditView, name='rechargeCredit'),
+
     ##matching urls
     ####questionRequest urls
     path('questionRequest', views.questionRequest, name='questionRequest'),
@@ -33,16 +37,15 @@ urlpatterns = [
     path('questionRequestAnswerSelect/<int:questionRequestAnswerId>/<str:timestamp>/<int:id>', views.questionRequestAnswerSelectView, name='questionRequestAnswerSelect'),
     path('answerView/<int:questionRequestAnswerId>', views.answerViewView, name='answerView'),
     path('questionRequestCheckbox', views.questionRequestCheckboxView, name='questionRequestCheckbox'),
-    #
-    # ##liveinterview urls
-    # path(r'liveinterviewList/<int:userId>', views.liveinterviewListView, name='liveinterviewList'),
-    # path('liveinterviewWrite', views.liveinterviewWriteView, name='liveinterviewWrite'),
-    # path('liveinterviewView/<int:interviewId>', views.liveinterviewViewView, name='liveinterviewView'),
-    # path('liveinterviewSelect/<int:interviewId>/<int:userId>/<str:timestamp>', views.liveinterviewSelectView, name='liveinterviewSelect'),
-    #
-    #
+
+    ##liveinterview urls
+    path(r'liveinterviewList/<int:userId>', views.liveinterviewListView, name='liveinterviewList'),
+    path('liveinterviewWrite', views.liveinterviewWriteView, name='liveinterviewWrite'),
+    path('liveinterviewView/<int:interviewId>', views.liveinterviewViewView, name='liveinterviewView'),
+    path('liveinterviewSelect/<int:interviewId>/<int:userId>/<str:timestamp>', views.liveinterviewSelectView, name='liveinterviewSelect'),
+
+
     # ##test urls
-    # path('chattingList', views.chattingListView, name='chattingList'),
     # path('test', views.test, name='test'),
     # path('listTest', views.listTest, name='listTest'),
     # path('mapTest', views.mapTest, name='mapTest'),

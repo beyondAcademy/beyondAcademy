@@ -134,6 +134,21 @@ class TradeLiveinterviewSelectModel(models.Model):
     upt_dttm = models.DateTimeField(auto_now=True)
     upt_user = models.CharField(max_length=20, default='ADMIN')
 
+class TradeRechargeModel(models.Model):
+    date = models.CharField(max_length=8)
+    receipt_no = models.IntegerField()
+    amount = models.IntegerField()
+    user = models.ForeignKey('user', models.DO_NOTHING)
+    trade_dttm_webserver = models.DateTimeField()
+    trade_dttm_browser = models.DateTimeField()
+
+    delete_yn = models.CharField(default="N", max_length=1)
+    ins_dttm = models.DateTimeField(auto_now_add=True)
+    ins_user = models.CharField(max_length=20, default='ADMIN')
+    upt_dttm = models.DateTimeField(auto_now=True)
+    upt_user = models.CharField(max_length=20, default='ADMIN')
+
+
 ##liveinterview models
 class LiveinterviewModel(models.Model):
     write_user = models.ForeignKey('User', models.DO_NOTHING)
