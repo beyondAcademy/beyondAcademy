@@ -2,32 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81572665-b2e5-4bdf-b97a-9bc434f9a772" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/algorithm/algorithm.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/matching/question_request_answer_view.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/algorithm/algorithm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/algorithm/algorithm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/inc/matching/question_request_answer_view.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graduateProject/views/algorithm_views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/manifest.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/beyondAcademy/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/beyondAcademy/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/migrations/0002_traderechargemodel.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/liveinterview/liveinterview_list.css" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/liveinterview/liveinterview_list.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/matching/question_request.css" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/matching/question_request.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/profile/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/static/graduateProject/css/profile/profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/base/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/liveinterview/liveinterview_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/liveinterview/liveinterview_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/liveinterview/liveinterview_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/liveinterview/liveinterview_view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/matching/question_answer_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/matching/question_answer_view.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/matching/question_request.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/matching/question_request.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/templates/graduateProject/profile/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/templates/graduateProject/profile/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/views/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/views/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/views/liveinterview_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/views/liveinterview_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/views/matching_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/views/matching_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graduateProject/views/user_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/graduateProject/views/user_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -131,7 +108,11 @@
       <workItem from="1575197001333" duration="37675000" />
       <workItem from="1575507670790" duration="543000" />
       <workItem from="1575530264425" duration="2594000" />
-      <workItem from="1575606802826" duration="7395000" />
+      <workItem from="1575606802826" duration="7484000" />
+      <workItem from="1575801575234" duration="2192000" />
+      <workItem from="1575807032985" duration="826000" />
+      <workItem from="1575808707086" duration="126000" />
+      <workItem from="1575809518181" duration="5430000" />
     </task>
     <servers />
   </component>
@@ -158,11 +139,6 @@
           <url>file://$PROJECT_DIR$/graduateProject/views/user_views.py</url>
           <line>67</line>
           <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/graduateProject/views/liveinterview_views.py</url>
-          <line>310</line>
-          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

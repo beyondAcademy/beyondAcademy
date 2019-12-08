@@ -1,0 +1,10 @@
+---
+applications:
+- name: beyondacademy
+  memory: 1024M
+  instances: 1
+  stack: cflinuxfs3
+  buildpack: https://github.com/cloudfoundry/python-buildpack.qit
+  env:
+  CF_STAGING_TIMEOUT: 15
+  CF_STARTUP_TIMEOUT: 15
