@@ -1,7 +1,8 @@
 .wrapper-checkbox {
-    border: 1px solid black;
+    border: 1px solid mediumpurple;
     border-radius: 10px;
     margin: 5px;
+    padding : 5px 10px;
 }
 
 .active-pink-4 input[type=text]:focus:not([readonly]) {
@@ -121,4 +122,8 @@
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.field, .lifestyle{
+    height: 130px;
 }

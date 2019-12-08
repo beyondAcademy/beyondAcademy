@@ -2,6 +2,7 @@
 
 
 {% block content %}
+    {% load humanize %}
     {% include 'graduateProject/inc/profile/profile.html' %}
 
     <div class="container">
@@ -37,20 +38,23 @@
                             <tr class="take">
                                 <td> {{ tradePerUser.date }}</td>
                                 <td> {{ tradePerUser.trade_type }}</td>
-                                <td> {{ tradePerUser.amount }}</td>
-                                <td> {{ tradePerUser.currency }}</td>
+                                <td> {{ tradePerUser.amount | intcomma  }}</td>
+                                <td> {{ tradePerUser.currency}}</td>
                             </tr>
                         {% elif tradePerUser.trade_flag == '002' %}
                             <tr class="give">
                                 <td> {{ tradePerUser.date }}</td>
                                 <td> {{ tradePerUser.trade_type }}</td>
-                                <td> {{ tradePerUser.amount }}</td>
-                                <td> {{ tradePerUser.currency }}</td>
+                                <td> {{ tradePerUser.amount | intcomma  }}</td>
+                                <td> {{ tradePerUser.currency}}</td>
                             </tr>
                         {% endif %}
                     {% endfor %}
                     </tbody>
                 </table>
+            </div>
+            <div class="remian-amount centered">
+                <span class="remain-amount">현재 {{ user.credit | intcomma }} 크레딧이 남아있습니다.</span>
             </div>
         </div>
     </div>
@@ -104,6 +108,7 @@
                 },
                 success: function (data) {
                     alert(data);
+                    location.reload();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert("arjax error : " + textStatus + "\n" + errorThrown);

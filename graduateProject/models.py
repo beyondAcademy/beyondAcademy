@@ -99,25 +99,6 @@ class TradeRequestAnswerModel(models.Model):
     upt_dttm = models.DateTimeField(auto_now=True)
     upt_user = models.CharField(max_length=20, default='ADMIN')
 
-# class TradeProposalAnswer(models.Model):
-#     date = models.DateTimeField()
-#     receipt_no = models.CharField(max_length=5)
-#     currency = models.CharField(max_length=1)
-#     amount = models.IntegerField()
-#     take_user = models.ForeignKey('User', models.DO_NOTHING)
-#     give_user = models.ForeignKey('User', models.DO_NOTHING)
-#     proposal_id = models.ForeignKey()
-#     feedback_id = models.ForeignKey()
-#     answer_id = models.ForeignKey()
-#     trade_dttm_webserver = models.DateTimeField()
-#     trade_dttm_browser = models.DateTimeField()
-#
-#     delete_yn = models.CharField(default="N", max_length=1)
-#     ins_dttm = models.DateTimeField(auto_now_add=True)
-#     ins_user = models.CharField(max_length=20, default='ADMIN')
-#     upt_dttm = models.DateTimeField(auto_now=True)
-#     upt_user = models.CharField(max_length=20, default='ADMIN')
-
 class TradeLiveinterviewSelectModel(models.Model):
     date = models.CharField(max_length=8)
     receipt_no = models.IntegerField()
@@ -149,6 +130,26 @@ class TradeRechargeModel(models.Model):
     upt_user = models.CharField(max_length=20, default='ADMIN')
 
 
+# class TradeProposalAnswer(models.Model):
+#     date = models.DateTimeField()
+#     receipt_no = models.CharField(max_length=5)
+#     currency = models.CharField(max_length=1)
+#     amount = models.IntegerField()
+#     take_user = models.ForeignKey('User', models.DO_NOTHING)
+#     give_user = models.ForeignKey('User', models.DO_NOTHING)
+#     proposal_id = models.ForeignKey()
+#     feedback_id = models.ForeignKey()
+#     answer_id = models.ForeignKey()
+#     trade_dttm_webserver = models.DateTimeField()
+#     trade_dttm_browser = models.DateTimeField()
+#
+#     delete_yn = models.CharField(default="N", max_length=1)
+#     ins_dttm = models.DateTimeField(auto_now_add=True)
+#     ins_user = models.CharField(max_length=20, default='ADMIN')
+#     upt_dttm = models.DateTimeField(auto_now=True)
+#     upt_user = models.CharField(max_length=20, default='ADMIN')
+
+
 ##liveinterview models
 class LiveinterviewModel(models.Model):
     write_user = models.ForeignKey('User', models.DO_NOTHING)
@@ -159,6 +160,7 @@ class LiveinterviewModel(models.Model):
     amount = models.IntegerField()
     duration = models.IntegerField(default=0)
     read_count = models.IntegerField(default=0)
+    reply_count = models.IntegerField(default=0)
 
     delete_yn = models.CharField(default="N", max_length=1)
     ins_dttm = models.DateTimeField(auto_now_add=True)
@@ -183,6 +185,7 @@ class LiveinterviewReplyModel(models.Model):
     interview_id = models.ForeignKey('LiveinterviewModel', models.DO_NOTHING)
     seq = models.IntegerField()
     reply_user = models.ForeignKey('User', models.DO_NOTHING)
+    reply_content = models.TextField(blank=True, null=True)
     reply_dttm = models.DateTimeField()
 
     delete_yn = models.CharField(default="N", max_length=1)
@@ -258,6 +261,32 @@ class QuestionRequestAnswerSelectListModel(models.Model):
     user = models.ForeignKey('User', models.DO_NOTHING)
     seq = models.IntegerField()
     answer = models.ForeignKey('QuestionRequestAnswerModel', models.DO_NOTHING)
+
+    delete_yn = models.CharField(default="N", max_length=1)
+    ins_dttm = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    ins_user = models.CharField(max_length=20, default='ADMIN')
+    upt_dttm = models.DateTimeField(auto_now=True, blank=True, null=True)
+    upt_user = models.CharField(max_length=20, default='ADMIN')
+
+class QuestionRequestSearchModel(models.Model):
+    user = models.ForeignKey('User', models.DO_NOTHING)
+    cat_h_category = models.CharField(max_length=3)
+    cat_m_category = models.CharField(max_length=3)
+    cat_key = models.CharField(max_length=3)
+
+    delete_yn = models.CharField(default="N", max_length=1)
+    ins_dttm = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    ins_user = models.CharField(max_length=20, default='ADMIN')
+    upt_dttm = models.DateTimeField(auto_now=True, blank=True, null=True)
+    upt_user = models.CharField(max_length=20, default='ADMIN')
+
+####chatting model
+class Chatting(models.Model):
+    question_answer_id = models.ForeignKey('QuestionRequestAnswerModel', models.DO_NOTHING)
+    send_user = models.ForeignKey('User', models.DO_NOTHING)
+    content = models.TextField()
+    send_dttm = models.DateTimeField()
+    read_yn = models.CharField(max_length=1)
 
     delete_yn = models.CharField(default="N", max_length=1)
     ins_dttm = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -355,3 +384,17 @@ class imageTest(models.Model):
     def get_absolute_url(self):
         url = reverse('detail', kwargs={'pk': self.pk})
         return url
+
+
+##algorithm models
+class Document(models.Model):
+    category1 = models.IntegerField()
+    category2 = models.IntegerField()
+    category3 = models.IntegerField()
+    read_yn = models.CharField(max_length=1)
+
+    delete_yn = models.CharField(default="N", max_length=1)
+    ins_dttm = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    ins_user = models.CharField(max_length=20, default='ADMIN')
+    upt_dttm = models.DateTimeField(auto_now=True, blank=True, null=True)
+    upt_user = models.CharField(max_length=20, default='ADMIN')

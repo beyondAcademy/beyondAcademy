@@ -4,10 +4,12 @@ from django.http import HttpResponse
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+import json
 
 ##model import
 from graduateProject.models import LiveinterviewModel, LiveinterviewSelectListModel, LiveinterviewReplyModel, User, LiveinterviewCategoryModel
 from graduateProject.models import TradeHeaderModel, TradePointModel, TradePerUserModel, TradeLiveinterviewSelectModel
+from graduateProject.models import BaseCode
 
 ##form import
 from graduateProject.forms import LiveinterviewForm
@@ -20,7 +22,9 @@ def liveinterviewListView(request, userId):
         interviewList = LiveinterviewModel.objects.all().order_by('-pk').select_related('write_user').values('id', 'write_user', 'write_user__last_name', 'write_dttm', 'title','content','currency','amount','read_count')
         selectInterviewList = LiveinterviewSelectListModel.objects.filter(user_id__exact=userId).values("interview_id")
 
-
+        fields = BaseCode.objects.filter(h_category__exact="001").filter(m_category__exact="001")
+        tasktypes = BaseCode.objects.filter(h_category__exact="001").filter(m_category__exact="002")
+        lifestyles = BaseCode.objects.filter(h_category__exact="001").filter(m_category__exact="003")
 
         interviewTuple = []
         for interview in interviewList:
@@ -31,7 +35,7 @@ def liveinterviewListView(request, userId):
         selectInterviewListTuple = []
         for selectInterview in selectInterviewList:
             selectInterviewListTuple.append(selectInterview['interview_id'])
-        return render(request, 'graduateProject/liveinterview/liveinterview_list.html', {'active': active, 'interviewList':interviewTuple, 'selectInterviewList':selectInterviewListTuple})
+        return render(request, 'graduateProject/liveinterview/liveinterview_list.html', {'active': active, 'interviewList':interviewTuple, 'selectInterviewList':selectInterviewListTuple, 'fields': fields, 'tasktypes': tasktypes, 'lifestyles': lifestyles})
     except Exception as ex:
         print('error occured :', ex)
 
@@ -100,22 +104,26 @@ def liveinterviewViewView(request, interviewId):
         active = 'liveinterviewView'
         interview = LiveinterviewModel.objects.get(id__exact=interviewId)
         replies = LiveinterviewReplyModel.objects.filter(interview_id__exact=interview)
+        interview.read_count += 1
+        interview.save()
         return render(request, 'graduateProject/liveinterview/liveinterview_view.html', {'active': active, 'interview':interview, 'replies':replies})
     except Exception as ex:
         print('error occured :', ex)
 
 @login_required
 @transaction.atomic
-def liveinterviewSelectView(request, interviewId, userId, timestamp):
+def liveinterviewSelectView(request):
     try:
         ##liveinterview select list model variables
+        userId = request.POST['id']
+        timestamp = request.POST['timestamp']
+        interviewId = request.POST['interviewId']
         interview = LiveinterviewModel.objects.get(id__exact=interviewId)
-
 
         giveUser = User.objects.get(id__exact=userId)
         takeUser = User.objects.get(id__exact=interview.write_user.id)
         if giveUser.credit < interview.amount:
-            return HttpResponse("not enough credit")
+            return HttpResponse("크레딧이 부족합니다. 크레딧을 충전해주세요.")
         seq = LiveinterviewSelectListModel.objects.filter(user_id__exact=giveUser)
         if seq:
             seq = LiveinterviewSelectListModel.objects.filter(user_id__exact=giveUser).order_by('-seq')[0].seq+1
@@ -157,11 +165,11 @@ def liveinterviewSelectView(request, interviewId, userId, timestamp):
             else:
                 seq_tradePointModel = 1
 
-            interviewCategories = LiveinterviewCategoryModel.obejcts.filter(answer_id__exact=interviewId)
+            interviewCategories = LiveinterviewCategoryModel.objects.filter(interview_id__exact=interviewId)
 
             for interviewCategory in interviewCategories:
                 tradepointModel = TradePointModel(date=date, receipt_no=receipt_no, seq=seq_tradePointModel,
-                                                  user=takeUser, trade_type=trade_type,
+                                                  user=takeUser.id, trade_type=trade_type,
                                                   cat_h_category='001', cat_m_category='001',
                                                   cat_key=interviewCategory.cat_key,
                                                   amount=interview.amount / len(interviewCategories),
@@ -201,8 +209,111 @@ def liveinterviewSelectView(request, interviewId, userId, timestamp):
         takeUser.save()
         giveUser.save()
 
-        return HttpResponse("success")
+        msg = '게시글을 열람하셨습니다. 이 무료로 게시글을 조회하실 수 있습니다.'
+        return HttpResponse(msg)
+
+    except Exception as ex:
+        print('error occured :', ex)
+
+def liveinterviewCheckboxView(request):
+    try:
+        if request.method == "POST":
+            fields = request.POST.getlist('fields[]')
+            tasktypes = request.POST.getlist('tasktypes[]')
+            lifestyles = request.POST.getlist('lifestyles[]')
 
 
+            fieldQueryString = '['
+            tasktypeQueryString = '['
+            lifestyleQueryString = '['
+
+            index = 0
+            for field in fields:
+                if index == len(fields)-1:
+                    fieldQueryString += '"' + field[15:18] + '"'
+                else:
+                    fieldQueryString += '"' + field[15:18] + '",'
+                index += 1
+
+            index=0
+            for tasktype in tasktypes:
+                if index == len(tasktypes) - 1:
+                    tasktypeQueryString += '"' + tasktype[19:22] + '"'
+                else:
+                    tasktypeQueryString += '"' + tasktype[19:22] + '",'
+                index += 1
+
+            index=0
+            for lifestyle in lifestyles:
+                if index == len(lifestyles) - 1:
+                    lifestyleQueryString += '"' + lifestyle[20:23] + '"'
+                else:
+                    lifestyleQueryString += '"' + lifestyle[20:23] + '",'
+                index += 1
+
+            fieldQueryString += ']'
+            tasktypeQueryString += ']'
+            lifestyleQueryString += ']'
+
+            fieldQueryString = json.loads(fieldQueryString)
+            tasktypeQueryString = json.loads(tasktypeQueryString)
+            lifestyleQueryString = json.loads(lifestyleQueryString)
+
+            liveinterviewCategories = LiveinterviewCategoryModel.objects.filter(cat_m_category__exact='001').filter(cat_key__in=fieldQueryString) | \
+                                        LiveinterviewCategoryModel.objects.filter(cat_m_category__exact='002').filter(cat_key__in=tasktypeQueryString) | \
+                                        LiveinterviewCategoryModel.objects.filter(cat_m_category__exact='003').filter(cat_key__in=lifestyleQueryString)
+
+            liveinterviewList = []
+            for liveinterviewCategory in liveinterviewCategories:
+                liveinterviewList.append(liveinterviewCategory.interview_id)
+
+            tmpList = []
+            for liveinterview in liveinterviewList:
+                tmpDict = {}
+                tmpDict['id'] = liveinterview.id
+                tmpDict['write_user'] = liveinterview.write_user.id
+                tmpDict['write_user__last_name'] = liveinterview.write_user.last_name
+                tmpDict['write_dttm'] = str(liveinterview.write_dttm)
+                tmpDict['title'] = liveinterview.title
+                tmpDict['amount'] = liveinterview.amount
+                tmpDict['read_count'] = liveinterview.read_count
+                tmpDict['reply_count'] = liveinterview.reply_count
+                tmpList.append(tmpDict)
+
+
+        return HttpResponse(json.dumps(tmpList), content_type="application/json")
+    except Exception as ex:
+        print('error occured :', ex)
+
+@login_required
+@transaction.atomic
+def liveinterviewReplyWriteView(request):
+    try:
+        interviewId = request.POST['interviewId']
+        userId = request.POST['userId']
+        replyContent = request.POST['replyContent']
+        liveinterview = LiveinterviewModel.objects.get(id__exact=interviewId)
+        replyWriteUser = User.objects.get(id__exact=userId)
+        is_seq = LiveinterviewReplyModel.objects.filter(interview_id__exact=liveinterview).order_by('-seq')
+        if is_seq:
+            seq=LiveinterviewReplyModel.objects.filter(interview_id__exact=liveinterview).order_by('-seq')[0].seq+1
+        else:
+            seq=1
+        reply_dttm = datetime.datetime.now()
+
+
+        reply = LiveinterviewReplyModel(interview_id=liveinterview, seq=seq, reply_user=replyWriteUser, reply_content=replyContent, reply_dttm=reply_dttm)
+        liveinterview.read_count += 1
+        liveinterview.save()
+        reply.save()
+        replyList = LiveinterviewReplyModel.objects.filter(interview_id__exact=interviewId)
+
+        tmpList = []
+        for reply in replyList:
+            tmpDict = {'replyId':reply.id, 'userId':reply.reply_user_id, 'content':reply.reply_content}
+            tmpList.append(tmpDict)
+
+        jlist = json.dumps(tmpList)
+        return HttpResponse(jlist,content_type="application/json")
     except Exception as ex:
         print('error occured :', ex)

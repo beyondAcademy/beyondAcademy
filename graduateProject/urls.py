@@ -24,8 +24,8 @@ urlpatterns = [
     path('signup_completed', signup_completed, name='signup_completed'),
     path('signin/', auth_views.LoginView.as_view(template_name='graduateProject/user/signin.html'), name='signin'),
     path('signout', auth_views.LogoutView.as_view(), name='logout'),
-    # path('profile/<int:id>/', views.profileView, name='profile'),
-    url(r'^profile/(?P<id>\d+)', views.profileView, name='profile'),
+    path('profile/<int:id>/', views.profileView, name='profile'),
+    # url(r'^profile/(?P<id>\d+)', views.profileView, name='profile'),
     path('rechargeCredit', views.rechargeCreditView, name='rechargeCredit'),
 
     ##matching urls
@@ -34,16 +34,24 @@ urlpatterns = [
     path('questionRequestWrite', views.questionRequestWriteView, name='questionRequestWrite'),
     path('questionRequestAnswerWrite/<int:id>', views.questionRequestAnswerWriteView, name='questionRequestAnswerWrite'),
     path('questionRequestAnswerWriteRes', views.questionRequestAnswerWriteResView, name='questionRequestAnswerWriteRes'),
-    path('questionRequestAnswerSelect/<int:questionRequestAnswerId>/<str:timestamp>/<int:id>', views.questionRequestAnswerSelectView, name='questionRequestAnswerSelect'),
+    path('questionRequestAnswerSelect', views.questionRequestAnswerSelectView, name='questionRequestAnswerSelect'),
     path('answerView/<int:questionRequestAnswerId>', views.answerViewView, name='answerView'),
     path('questionRequestCheckbox', views.questionRequestCheckboxView, name='questionRequestCheckbox'),
+    path('questionRequestMyQuestion', views.questionRequestMyQuestionView, name='questionRequestMyQuestion'),
 
     ##liveinterview urls
     path(r'liveinterviewList/<int:userId>', views.liveinterviewListView, name='liveinterviewList'),
     path('liveinterviewWrite', views.liveinterviewWriteView, name='liveinterviewWrite'),
     path('liveinterviewView/<int:interviewId>', views.liveinterviewViewView, name='liveinterviewView'),
-    path('liveinterviewSelect/<int:interviewId>/<int:userId>/<str:timestamp>', views.liveinterviewSelectView, name='liveinterviewSelect'),
+    path('liveinterviewSelect', views.liveinterviewSelectView, name='liveinterviewSelect'),
+    path('liveinterviewCheckbox', views.liveinterviewCheckboxView, name='liveinterviewCheckbox'),
+    path('liveinterviewReplyWrite', views.liveinterviewReplyWriteView, name='liveinterviewReplyWrite'),
 
+    ##algorithm urls
+    path('algorithm', views.algorithmView, name='algorithm'),
+    path('algorithmSelect', views.algorithmSelectView, name='algorithmSelect'),
+    path('algorithmReset', views.algorithmResetView, name='algorithmReset'),
+    path('algorithmRecommend', views.algorithmRecommend, name='algorithmRecommend')
 
     # ##test urls
     # path('test', views.test, name='test'),

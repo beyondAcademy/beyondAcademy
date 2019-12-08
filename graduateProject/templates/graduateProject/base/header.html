@@ -1,65 +1,89 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg fixed-top">
-  <a class="navbar-brand" href="index">경험열람실</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item" id="guide">
-        <a class="nav-link" href="guide">이용방법<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item dropdown" id="matching">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          경험나눔
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="questionRequest">질문요청</a>
-          <a class="dropdown-item" href="questionProposal">질문제안</a>
-          <a class="dropdown-item" href="questionProposalFeedback">질문추가</a>
-          <a class="dropdown-item" href="questionProposalAnswer">질문응답</a>
-        </div>
-      </li>
-      <li class="nav-item" id="history">
-        <a class="nav-link" href="history">경험실록<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item" id="liveinterview">
-        <a class="nav-link" href="liveinterviewList/{{user.id}}">무엇이든 물어보세요<span class="sr-only">(current)</span></a>
-      </li>
+    <a class="navbar-brand" href="index">경험열람실</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item" id="guide">
+                <a class="nav-link" href="index">이용방법<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown" id="matching">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    경험나눔
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    {% if user.username %}
+                        <a class="dropdown-item" href="/questionRequest">질문요청</a>
+                    {% else %}
+                        <a class="dropdown-item" onclick="loginRequired()">질문요청</a>
+                    {% endif %}
+                    <a class="dropdown-item">질문제안</a>
+                    <a class="dropdown-item">질문추가</a>
+                    <a class="dropdown-item">질문응답</a>
+                </div>
+            </li>
+            <li class="nav-item" id="liveinterview">
+                {% if user.username %}
+                    <a class="nav-link" href="/liveinterviewList/{{ user.id }}">무엇이든 물어보세요<span
+                            class="sr-only">(current)</span></a>
+                {% else %}
+                    <a class="nav-link" onclick="loginRequired()">무엇이든 물어보세요<span
+                            class="sr-only">(current)</span></a>
+                {% endif %}
+            </li>
+            <li class="nav-item" id="liveinterview">
+                {% if user.username %}
+                    <a class="nav-link" href="/algorithm">추천알고리즘<span
+                            class="sr-only">(current)</span></a>
+                {% else %}
+                    <a class="nav-link" onclick="loginRequired()">추천알고리즘<span
+                            class="sr-only">(current)</span></a>
+                {% endif %}
+            </li>
 
 
-    </ul>
-    <ul class="nav navbar-nav ml-auto">
-      <li><a href="signup" style="font-color:black; margin-right:20px;"><i class="fas fa-user-plus"></i>Sign Up</a></li>
-      {% if user.username %}
-      <li><a href="signout" style="font-color:black; margin-right:20px;"><i class="fas fa-sign-out-alt"></i>Sign Out</a></li>
-      <li><a href="profile/{{ user.id }}" style="font-color:black; margin-right:20px;"><i class="fas fa-cog"></i></a></li>
-      {% else %}
-      <li><a href="signin/" style="font-color:black; margin-right:20px;"><i class="fas fa-sign-in-alt"></i> Sign In</a></li>
-      {% endif %}
-    </ul>
-  </div>
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+            <li><a href="/signup" style="font-color:black; margin-right:20px;"><i class="fas fa-user-plus"></i>Sign
+                Up</a></li>
+            {% if user.username %}
+                <li><a href="/signout" style="font-color:black; margin-right:20px;"><i class="fas fa-sign-out-alt"></i>Sign
+                    Out</a></li>
+                <li><a href="/profile/{{ user.id }}" style="font-color:black; margin-right:20px;"><i
+                        class="fas fa-cog"></i></a></li>
+            {% else %}
+                <li><a href="/signin/" style="font-color:black; margin-right:20px;"><i class="fas fa-sign-in-alt"></i>
+                    Sign In</a></li>
+            {% endif %}
+        </ul>
+    </div>
 
 </nav>
 
 {% block javascript %}
-<script type="text/javascript">
-{% if active == "index" %}
-    $( "#index" ).addClass( 'active' );
-{% elif active == "findSenior" %}
-    $( "#findSenior" ).addClass( 'active' );
-{% elif active == "test" %}
-    $( "#test" ).addClass( 'active' );
-{% elif active == "listTest" %}
-    $( "#listTest" ).addClass( 'active' );
-{% elif active == "mapTest" %}
-    $( "#mapTest" ).addClass( 'active' );
-{% elif active == "imageTest" %}
-    $( "#imageTest" ).addClass( 'active' );
-{% elif active == "chatting" %}
-    $( "#chatting" ).addClass( 'active' );
+    <script type="text/javascript">
+        {% if active == "index" %}
+            $("#index").addClass('active');
+        {% elif active == "findSenior" %}
+            $("#findSenior").addClass('active');
+        {% elif active == "test" %}
+            $("#test").addClass('active');
+        {% elif active == "listTest" %}
+            $("#listTest").addClass('active');
+        {% elif active == "mapTest" %}
+            $("#mapTest").addClass('active');
+        {% elif active == "imageTest" %}
+            $("#imageTest").addClass('active');
+        {% elif active == "chatting" %}
+            $("#chatting").addClass('active');
+        {% endif %}
 
-{% endif %}
-
-</script>
+        function loginRequired() {
+            alert("로그인이 필요합니다. 테스트ID는 test1~test9이며 PW는 ID와 동일합니다. 졸프전시용으로 간소화시켜놓았기 때문에 쉽게 회원가입 하실 수 있습니다.")
+        }
+    </script>
 
 {% endblock %}

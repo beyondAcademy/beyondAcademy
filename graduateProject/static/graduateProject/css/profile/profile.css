@@ -25,6 +25,8 @@
 
 .trade-list{
     margin: 120px 5px;
+    height: 570px;
+    overflow: auto;
 }
 
 .recharge{
@@ -50,4 +52,8 @@
 
 .give{
     color:red;
+}
+
+.remian-amount{
+    margin-top: -110px;
 }

@@ -54,7 +54,7 @@ def signup_result(request):
                 username,password,last_name, email, phone, '1990-01-01'
             )
 
-            redirection_page = 'signup_completed'
+            redirection_page = 'index'
 
         else:
             redirection_page = 'error'
@@ -75,6 +75,8 @@ def profileView(request, id):
             tradePerUser['trade_type'] = '응답채택'
         elif(tradePerUser['trade_type'] == '011'):
             tradePerUser['trade_type'] = '크레딧충전'
+        elif(tradePerUser['trade_type'] == '051'):
+            tradePerUser['trade_type'] = '무물열람'
 
         if(tradePerUser['currency'] == '001'):
             tradePerUser['currency'] = '원'

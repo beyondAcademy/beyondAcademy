@@ -1,0 +1,86 @@
+.chart {
+  display:inline-block;
+  width: 200px;
+  height: 200px;
+}
+
+.name {
+  display: inline-block;
+  float: left;
+  margin : 100px 100px 0px 100px;
+  width : 100px;
+}
+
+.category-name{
+}
+
+.table-container{
+  margin-top : 20px;
+}
+
+.list-total{
+  height: 2400px;
+  overflow: auto;
+}
+
+.selectedN{
+  color: deeppink;
+}
+
+.selectedY{
+  color: cornflowerblue;
+}
+
+.cat-color-1{
+  background-color : #67D5B5;
+}
+
+.container{
+  width: 100%;
+}
+
+.cat-color-2{
+  background-color : #EE7785;
+}
+
+.cat-color-3{
+  background-color : #C89Ec4;
+}
+
+.cat-color-4{
+  background-color : #84B1ED;
+}
+
+.cat-color-5{
+  background-color : palegoldenrod;
+}
+
+.cat-color, .cat-name{
+  display:inline-block;
+  float:left;
+}
+
+.cat-color{
+  width:20px;
+  height:20px;
+  margin-left: 5px;
+}
+
+.cat-name{
+  margin-left: 5px;
+  margin-right: 50px;
+}
+
+td{
+  text-align:center;
+  vertical-align: middle;
+}
+
+.longer-text{
+  font-size: 1px;
+}
+
+.btn-select{
+  height:80%;
+  padding: 5px 2px;
+}

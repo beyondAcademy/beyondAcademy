@@ -2,75 +2,146 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <table class="table table-striped"
-               style="text-align: center; border: 1px solid #dddddd; word-break: break-all; margin-bottom: 5px;">
-            <thead>
-            <tr>
-                <th colspan="4" style="background-color: #eeeeee; text-align: center;">게시판 글</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td style="width: 20%;">글제목</td>
-                <td colspan="3" align="left">
-                    {{ interview.title }}
-                </td>
-            </tr>
-            <tr>
-                <td>작성자</td>
-                <td colspan="3" align="left">
-                    {{ interview.write_user }}
-                </td>
-            </tr>
-            <tr>
-                <td>작성일자</td>
-                <td colspan="3" align="left">
-                    {{ interview.write_dttm }}
-                </td>
-            </tr>
-            <tr>
-                <td>내용</td>
-                <td colspan="3" style="min-height: 200px; text-align: left;">
-                    <p>
-                        {% autoescape off %}
-                        {{ interview.content }}
-                        {% endautoescape %}
-                    </p>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div style="margin-bottom: 10px;" align="right">
+    <div class="container">
+        <div class="row">
+            <table class="table table-striped"
+                   style="text-align: center; border: 1px solid #dddddd; word-break: break-all; margin-bottom: 5px;">
+                <thead>
+                <tr>
+                    <th colspan="4" style="background-color: #eeeeee; text-align: center;">게시판 글</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="width: 20%;">글제목</td>
+                    <td colspan="3" align="left">
+                        {{ interview.title }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>작성자</td>
+                    <td colspan="3" align="left">
+                        {{ interview.write_user }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>작성일자</td>
+                    <td colspan="3" align="left">
+                        {{ interview.write_dttm }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>내용</td>
+                    <td colspan="3" style="min-height: 200px; text-align: left;">
+                        <p>
+                            {% autoescape off %}
+                                {{ interview.content }}
+                            {% endautoescape %}
+                        </p>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="margin-bottom: 10px;" align="right">
+            </div>
+
+            <table class="table table-striped">
+                <tbody id="replyListTable">
+                </tbody>
+            </table>
         </div>
 
-        <table class="table table-striped">
-            <tbody id="replyListTable" >
-            </tbody>
+        <table class="table table-borderless" id="table-reply">
+            {% for reply in replies %}
+                <tr>
+                    <td>{{ reply.seq }}</td>
+                    <td>{{ reply.reply_user.last_name }}</td>
+                    <td>{{ reply.reply_content }}</td>
+                </tr>
+            {% endfor %}
         </table>
-    </div>
 
-    <form name="replyForm" id="replyForm">
         <table class="table table-condensed">
             <tbody>
             <tr>
-                <td style="width: 90%;"><textarea class="form-control" placeholder="댓글은 비동기적으로 작성됩니다. 주기적으로 새로고침 부탁드립니다." name="replyContent"
-                                                  id="replyContent" maxlength="2048" style="height: 150px;"></textarea>
+                <td style="width: 90%;"><textarea class="form-control"
+                                                  placeholder="댓글을 입력해주세요."
+                                                  name="replyContent"
+                                                  id="replyContent" maxlength="2048"
+                                                  style="height: 150px;"></textarea>
                 </td>
                 <td style="width: 10%; vertical-align: bottom;" align="center">
-                    <input type="button" onclick="replySubmit()" class="btn btn-primary pull-right" value="댓글작성">
+                    <input type="button" onclick="writeReply()" class="btn btn-primary pull-right" value="댓글작성">
                 </td>
             </tr>
             </tbody>
         </table>
-        <input type="hidden" name="boardNo" id="boardNo" value="${boardNo}">
-    </form>
-    <div class="row" style="align-: right">
-        <a href="/board.jsp?boardName=${boardName}" class="btn">목록</a>
-            <a href="/boardWrite.jsp?boardName=${boardName}&boardNo=${boardVO.boardNo}&writeFlag=3" class="btn">답글달기</a>
+
     </div>
+    <script type="text/javascript">
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
 
-</div>
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
 
+        $(document).ready(function () {
+            var csrftoken = getCookie('csrftoken');
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+        });
+
+        function writeReply() {
+            $.ajax({
+                type: 'POST',
+                url: '/liveinterviewReplyWrite',
+                data: {
+                    'interviewId': {{ interview.id }},
+                    'userId': {{ user.id }},
+                    'replyContent': $('#replyContent').val()
+                },
+                success: function (data) {
+                    context = '';
+                    for (var i = 0; i < data.length; i++) {
+                        reContent = data[i].content;
+                        newId = data[i].replyId;
+                        newUserId = data[i].userId;
+                        context += '<tr>';
+                        context += '<td>' + newId + '</td>';
+                        context += '<td>' + newUserId + '</td>';
+                        context += '<td>';
+                        context += reContent;
+                        context += '</td>';
+                        context += '</tr>';
+                    }
+                    $('#table-reply').html(context);
+                        $('textarea').val('');
+                        //slocation.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("arjax error : " + textStatus + "\n" + errorThrown);
+                },
+            });
+        }
+    </script>
 {% endblock %}

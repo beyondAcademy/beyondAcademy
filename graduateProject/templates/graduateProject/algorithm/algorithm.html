@@ -1,0 +1,438 @@
+{% extends 'graduateProject/base/base.html' %}
+
+{% block content %}
+    {% include 'graduateProject/inc/algorithm/algorithm.html' %}
+    <div class="container">
+        <div class="name">
+            username : {{ user.last_name }}
+            <br><br>
+            <button class="btn btn-primary btn-reset" onclick="reset()">RESET</button>
+        </div>
+        <div class="chart-wrapper">
+            <div class="row">
+                <div class="col-4">
+                    <h3>category1</h3>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-1"></div>
+                        <div class="cat-name"> 1 : <span id="cat1-1"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-2"></div>
+                        <div class="cat-name"> 2 : <span id="cat1-2"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-3"></div>
+                        <div class="cat-name"> 3 : <span id="cat1-3"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-4"></div>
+                        <div class="cat-name"> 4 : <span id="cat1-4"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-5"></div>
+                        <div class="cat-name"> 5 : <span id="cat1-5"></span> %</div>
+                    </div>
+                    <br>
+
+                    <div class="chart" id="category1"></div>
+                </div>
+                <div class="col-4">
+                    <h3>category2</h3>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-1"></div>
+                        <div class="cat-name"> 1 : <span id="cat2-1"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-2"></div>
+                        <div class="cat-name"> 2 : <span id="cat2-2"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-3"></div>
+                        <div class="cat-name"> 3 : <span id="cat2-3"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-4"></div>
+                        <div class="cat-name"> 4 : <span id="cat2-4"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-5"></div>
+                        <div class="cat-name"> 5 : <span id="cat2-5"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="chart" id="category2">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <h3>category3</h3>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-1"></div>
+                        <div class="cat-name"> 1 : <span id="cat3-1"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-2"></div>
+                        <div class="cat-name"> 2 : <span id="cat3-2"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-3"></div>
+                        <div class="cat-name"> 3 : <span id="cat3-3"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-4"></div>
+                        <div class="cat-name"> 4 : <span id="cat3-4"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="block-element">
+                        <div class="cat-color cat-color-5"></div>
+                        <div class="cat-name"> 5 : <span id="cat3-5"></span> %</div>
+                    </div>
+                    <br>
+                    <div class="chart" id="category3">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container"></div>
+        <div class="row">
+            <div class="col-6 list-total">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">category1</th>
+                        <th scope="col">category2</th>
+                        <th scope="col">category3</th>
+                        <th scope="col">select_yn</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for document in documentQueryset %}
+                        <tr>
+                            <th scope="row">{{ document.id }}</th>
+                            <td>{{ document.category1 }}</td>
+                            <td>{{ document.category2 }}</td>
+                            <td>{{ document.category3 }}</td>
+                            {% if document.read_yn == 'N' %}
+                                <td class="selectedN" onclick="algorithmSelect({{ document.id }})">
+                                    <button type="button" class="btn btn-outline-danger btn-select">채택하기</button>
+                                </td>
+                            {% else %}
+                                <td class="selectedY">채택완료</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-outline-primary" onclick="recommend()">recommend</button>
+                <h3>recommend with category1</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">category1</th>
+                        <th scope="col">category2</th>
+                        <th scope="col">category3</th>
+                        <th scope="col">contents</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody-category1">
+
+                    </tbody>
+                </table>
+                <h5 id="h5-cat1"></h5>
+                <h3>recommend with category2</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">category1</th>
+                        <th scope="col">category2</th>
+                        <th scope="col">category3</th>
+                        <th scope="col">contents</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody-category2">
+
+                    </tbody>
+                </table>
+                <h5 id="h5-cat2"></h5>
+                <h3>recommend with category3</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">category1</th>
+                        <th scope="col">category2</th>
+                        <th scope="col">category3</th>
+                        <th scope="col">contents</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody-category3">
+
+                    </tbody>
+                </table>
+                <h5 id="h5-cat3"></h5>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript">
+
+        // using jQuery
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i += 1) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $(document).ready(function () {
+            var csrftoken = getCookie('csrftoken');
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+        });
+
+        cat1_1 = {{ category1PercentageDict }}[1] * 1;
+        document.getElementById('cat1-1').innerHTML = Math.round(cat1_1);
+
+        cat1_2 = {{ category1PercentageDict }}[2] * 1;
+        document.getElementById('cat1-2').innerHTML = Math.round(cat1_2);
+        cat1_2 += cat1_1;
+
+        cat1_3 = {{ category1PercentageDict }}[3] * 1;
+        document.getElementById('cat1-3').innerHTML = Math.round(cat1_3);
+        cat1_3 += cat1_2;
+
+        cat1_4 = {{ category1PercentageDict }}[4] * 1;
+        document.getElementById('cat1-4').innerHTML = Math.round(cat1_4);
+        cat1_4 += cat1_3;
+
+        cat1_5 = {{ category1PercentageDict }}[5] * 1;
+        document.getElementById('cat1-5').innerHTML = Math.round(cat1_5);
+        cat1_5 += cat1_4;
+
+        cssScript = "conic-gradient(#67D5B5 0% " + cat1_1 + "%, #EE7785 " + cat1_1 + "% " + cat1_2 + "%, #C89Ec4 " + cat1_2 + "% " + cat1_3 + "%, #84B1ED " + cat1_3 + "% " + cat1_4 + "%, palegoldenrod " + cat1_4 + "% " + cat1_5 + "%)";
+
+        $("#category1").css({
+            "background": cssScript
+        });
+
+        cat2_1 = {{ category2PercentageDict }}[1] * 1;
+        document.getElementById('cat2-1').innerHTML = Math.round(cat2_1);
+
+        cat2_2 = {{ category2PercentageDict }}[2] * 1;
+        document.getElementById('cat2-2').innerHTML = Math.round(cat2_2);
+        cat2_2 += cat2_1;
+
+        cat2_3 = {{ category2PercentageDict }}[3] * 1;
+        document.getElementById('cat2-3').innerHTML = Math.round(cat2_3);
+        cat2_3 += cat2_2;
+
+        cat2_4 = {{ category2PercentageDict }}[4] * 1;
+        document.getElementById('cat2-4').innerHTML = Math.round(cat2_4);
+        cat2_4 += cat2_3;
+
+        cat2_5 = {{ category2PercentageDict }}[5] * 1;
+        document.getElementById('cat2-5').innerHTML = Math.round(cat2_5);
+        cat2_5 += cat2_4;
+        cssScript = "conic-gradient(#67D5B5 0% " + cat2_1 + "%, #EE7785 " + cat2_1 + "% " + cat2_2 + "%, #C89Ec4 " + cat2_2 + "% " + cat2_3 + "%, #84B1ED " + cat2_3 + "% " + cat2_4 + "%, palegoldenrod " + cat2_4 + "% " + cat2_5 + "%)";
+
+        $("#category2").css({
+            "background": cssScript
+        });
+
+        cat3_1 = {{ category3PercentageDict }}[1] * 1;
+        document.getElementById('cat3-1').innerHTML = Math.round(cat3_1);
+
+        cat3_2 = {{ category3PercentageDict }}[2] * 1;
+        document.getElementById('cat3-2').innerHTML = Math.round(cat3_2);
+        cat3_2 += cat3_1;
+
+        cat3_3 = {{ category3PercentageDict }}[3] * 1;
+        document.getElementById('cat3-3').innerHTML = Math.round(cat3_3);
+        cat3_3 += cat3_2;
+
+        cat3_4 = {{ category3PercentageDict }}[4] * 1;
+        document.getElementById('cat3-4').innerHTML = Math.round(cat3_4);
+        cat3_4 += cat3_3;
+
+        cat3_5 = {{ category3PercentageDict }}[5] * 1;
+        document.getElementById('cat3-5').innerHTML = Math.round(cat3_5);
+        cat3_5 += cat3_4;
+        cssScript = "conic-gradient(#67D5B5 0% " + cat3_1 + "%, #EE7785 " + cat3_1 + "% " + cat3_2 + "%, #C89Ec4 " + cat3_2 + "% " + cat3_3 + "%, #84B1ED " + cat3_3 + "% " + cat3_4 + "%, palegoldenrod " + cat3_4 + "% " + cat3_5 + "%)";
+
+        $("#category3").css({
+            "background": cssScript
+        });
+
+        function algorithmSelect(documentId) {
+            $.ajax({
+                type: 'POST',
+                url: '/algorithmSelect',
+                data: {
+                    'documentId': documentId,
+                },
+                success: function (data) {
+                    alert(data);
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("arjax error : " + textStatus + "\n" + errorThrown);
+                },
+            });
+        }
+
+        function reset() {
+            $.ajax({
+                type: 'POST',
+                url: '/algorithmReset',
+                data: {},
+                success: function (data) {
+                    alert(data);
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("arjax error : " + textStatus + "\n" + errorThrown);
+                },
+            });
+        }
+
+        function recommend() {
+            $.ajax({
+                type: 'POST',
+                url: '/algorithmRecommend',
+                data: {},
+                success: function (data) {
+                    recommendSuccess(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("arjax error : " + textStatus + "\n" + errorThrown);
+                },
+            });
+        }
+
+
+        function recommendSuccess(data) {
+            context1 = '';
+            context2 = '';
+            context3 = '';
+            count1_1 = data[1].cat1[1];
+            count1_2 = data[1].cat1[2];
+            count1_3 = data[1].cat1[3];
+            count1_4 = data[1].cat1[4];
+            count1_5 = data[1].cat1[5];
+            count2_1 = data[1].cat2[1];
+            count2_2 = data[1].cat2[2];
+            count2_3 = data[1].cat2[3];
+            count2_4 = data[1].cat2[4];
+            count2_5 = data[1].cat2[5];
+            count3_1 = data[1].cat3[1];
+            count3_2 = data[1].cat3[2];
+            count3_3 = data[1].cat3[3];
+            count3_4 = data[1].cat3[4];
+            count3_5 = data[1].cat3[5];
+
+
+            for (i = 0; i < 15; i += 1) {
+                if (data[0].cat1[i] && data[0].cat2[i] && data[0].cat3[i]) {
+                    context1 += '<tr>';
+                    context1 += '<td>';
+                    context1 += String(data[0].cat1[i].docId);
+                    context1 += '</td>';
+                    context1 += '<td>';
+                    context1 += String(data[0].cat1[i].category1);
+                    context1 += '</td>';
+                    context1 += '<td>';
+                    context1 += String(data[0].cat1[i].category2);
+                    context1 += '</td>';
+                    context1 += '<td>';
+                    context1 += String(data[0].cat1[i].category3);
+                    context1 += '</td>';
+                    context1 += '<td class="longer-text">';
+                    context1 += 'doc마다 다른 content';
+                    context1 += '</td>';
+                    context1 += '</tr>';
+
+                    context2 += '<tr>';
+                    context2 += '<td>';
+                    context2 += String(data[0].cat2[i].docId);
+                    context2 += '</td>';
+                    context2 += '<td>';
+                    context2 += String(data[0].cat2[i].category1);
+                    context2 += '</td>';
+                    context2 += '<td>';
+                    context2 += String(data[0].cat2[i].category2);
+                    context2 += '</td>';
+                    context2 += '<td>';
+                    context2 += String(data[0].cat2[i].category3);
+                    context2 += '</td>';
+                    context2 += '<td class="longer-text">';
+                    context2 += 'doc마다 다른 content';
+                    context2 += '</td>';
+                    context2 += '</tr>';
+
+                    context3 += '<tr>';
+                    context3 += '<td>';
+                    context3 += String(data[0].cat3[i].docId);
+                    context3 += '</td>';
+                    context3 += '<td>';
+                    context3 += String(data[0].cat3[i].category1);
+                    context3 += '</td>';
+                    context3 += '<td>';
+                    context3 += String(data[0].cat3[i].category2);
+                    context3 += '</td>';
+                    context3 += '<td>';
+                    context3 += String(data[0].cat3[i].category3);
+                    context3 += '</td>';
+                    context3 += '<td class="longer-text">';
+                    context3 += 'doc마다 다른 content';
+                    context3 += '</td>';
+                    context3 += '</tr>';
+                }
+            }
+            $('#tbody-category1').html(context1);
+            $('#tbody-category2').html(context2);
+            $('#tbody-category3').html(context3);
+
+            document.getElementById('h5-cat1').innerHTML = "countof 1:" + count1_1 + ",  2:" + count1_2 + ",  3:" + count1_3 + ",  4:" + count1_4 + ",  5:" + count1_5;
+            document.getElementById('h5-cat2').innerHTML = "countof 1:" + count2_1 + ",  2:" + count2_2 + ",  3:" + count2_3 + ",  4:" + count2_4 + ",  5:" + count2_5;
+            document.getElementById('h5-cat3').innerHTML = "countof 1:" + count3_1 + ",  2:" + count3_2 + ",  3:" + count3_3 + ",  4:" + count3_4 + ",  5:" + count3_5;
+        }
+
+
+    </script>
+{% endblock %}

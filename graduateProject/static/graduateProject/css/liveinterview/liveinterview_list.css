@@ -6,3 +6,26 @@
 .tr-context{
     background-color: #eeeeee;
 }
+
+.wrapper-checkbox {
+    border: 1px solid mediumpurple;
+    border-radius: 10px;
+    margin: 5px;
+    padding : 5px 10px;
+}
+
+.font-scailing {
+    font-size: 0.8vw;
+}
+
+.context-container {
+    margin: 0% 1% 0% 1%;
+}
+
+.liveinterview-read{
+    color: dodgerblue;
+}
+
+.liveinterview-select{
+    color: #f48fb1;
+}

@@ -1,12 +1,13 @@
 {% extends 'graduateProject/base/base.html' %}
 
 {% block content %}
+    {% include 'graduateProject/inc/matching/question_request_answer_view.html' %}
 
-<div class="container">
-    {% autoescape off %}
-    {{ content|safe|linebreaks }}
-    {% endautoescape %}
-</div>
+    <div class="container">
+        {% autoescape off %}
+            {{ content|safe|linebreaks }}
+        {% endautoescape %}
+    </div>
 
 
 {% endblock %}

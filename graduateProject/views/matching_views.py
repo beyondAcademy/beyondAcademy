@@ -27,13 +27,15 @@ def questionRequest(request):
     except Exception as ex:
         print('error occured :', ex)
 
+@login_required
+@transaction.atomic
 def questionRequestCheckboxView(request):
     try:
         if request.method == "POST":
             fields = request.POST.getlist('fields[]')
             tasktypes = request.POST.getlist('tasktypes[]')
             lifestyles = request.POST.getlist('lifestyles[]')
-
+            user_id = request.POST['id']
 
             fieldQueryString = '['
             tasktypeQueryString = '['
@@ -118,9 +120,6 @@ def questionRequestCheckboxView(request):
                     answerList.append(answerDict)
                 tmpDict['questionRequestAnswers'] = answerList
                 tmpList.append(tmpDict)
-
-
-
 
             return HttpResponse(json.dumps(tmpList), content_type="application/json")
         else:
@@ -219,15 +218,20 @@ def questionRequestAnswerWriteResView(request):
 
 @login_required
 @transaction.atomic
-def questionRequestAnswerSelectView(request, questionRequestAnswerId, timestamp, id):
+def questionRequestAnswerSelectView(request):
     try:
         ##answer variables
+        id = request.POST['id']
+        questionRequestAnswerId = request.POST['questionRequestAnswerId']
+        timestamp = request.POST['timestamp']
+
         selectUser = User.objects.get(id=id)
         answerUser = QuestionRequestAnswerModel.objects.get(id=questionRequestAnswerId).answer_user
         answer = QuestionRequestAnswerModel.objects.get(id=questionRequestAnswerId)
+        questionRequestCategoryList = QuestionRequestCategory.objects.filter(request_no = answer.request_no)
 
         if selectUser.credit<answer.amount:
-            return HttpResponse("not enough credit")
+            return HttpResponse("크레딧이 부족합니다. 우측 상단의 톱니바퀴 아이콘을 눌러 크레딧을 충전하세요.")
 
         now = datetime.datetime.now()
         date = now.strftime('%Y%m%d')
@@ -289,11 +293,6 @@ def questionRequestAnswerSelectView(request, questionRequestAnswerId, timestamp,
                                                   trade_dttm_webserver=now, trade_dttm_browser=trade_dttm_browser)
                 tradepointModel.save()
 
-
-
-
-
-
         ##trade per user variables
         seq_tradePerUserModel = TradePerUserModel.objects.filter(date__exact=date).filter(receipt_no__exact=receipt_no)
         if seq_tradePerUserModel:
@@ -331,7 +330,11 @@ def questionRequestAnswerSelectView(request, questionRequestAnswerId, timestamp,
                                                           trade_dttm_webserver=now, trade_dttm_browser=trade_dttm_browser
                                                           )
 
-
+        ##questionRequest Search View
+        for questionRequestCategory in questionRequestCategoryList:
+            questionRequestSearch = QuestionRequestSearchModel(user=selectUser, cat_h_category=questionRequestCategory.cat_h_category,
+                                                               cat_m_category=questionRequestCategory.cat_m_category, cat_key=questionRequestCategory.cat_key)
+            questionRequestSearch.save()
 
         ##save
         answer.save()
@@ -344,7 +347,7 @@ def questionRequestAnswerSelectView(request, questionRequestAnswerId, timestamp,
         answerUser.save()
 
         # return redirect(reverse('answerView/'+str(answer.id)))
-        return redirect(reverse('questionRequest'))
+        return HttpResponse('응답이 채택되었습니다. 응답을 조회해보세요.')
 
     except Exception as ex:
         print('error occured :', ex)
@@ -357,3 +360,52 @@ def answerViewView(request, questionRequestAnswerId):
     except Exception as ex:
         print('error occured :', ex)
     return render(request, 'graduateProject/matching/question_answer_view.html', {'active': active, 'content': content})
+
+@login_required
+def questionRequestMyQuestionView(request):
+    try:
+        id=request.POST['id']
+        questionIdList = QuestionRequest.objects.filter(user_id__exact=id).values('id')
+
+        index = 0
+        questionQueryString = '['
+        for questionId in questionIdList:
+            if index == len(questionIdList) - 1:
+                questionQueryString += '"' + str(questionId.id) + '"'
+            else:
+                questionQueryString += '"' + str(questionId.id) + '",'
+            index += 1
+
+        questionQueryString += ']'
+        questionQueryString = json.loads(questionQueryString)
+
+        questionRequestList = QuestionRequest.objects.filter(id__in=questionQueryString).order_by('-pk').values('id',
+                                                                                                                'content',
+                                                                                                                'user_id')
+
+        for index in questionRequestList:
+            answerQuerySet = QuestionRequestAnswerModel.objects.filter(request_no__exact=index['id']).select_related(
+                'answer_user').values('id', 'answer_user__last_name', 'amount', 'select_yn')
+            index['questionRequestAnswers'] = answerQuerySet
+
+        tmpList = []
+        for questionRequest in questionRequestList:
+            tmpDict = {}
+            tmpDict['id'] = questionRequest['id']
+            tmpDict['content'] = questionRequest['content']
+            tmpDict['user_id'] = questionRequest['user_id']
+
+            answerList = []
+            for answer in questionRequest['questionRequestAnswers']:
+                answerDict = {}
+                answerDict['id'] = answer['id']
+                answerDict['last_name'] = answer['answer_user__last_name']
+                answerDict['amount'] = answer['amount']
+                answerDict['select_yn'] = answer['select_yn']
+                answerList.append(answerDict)
+            tmpDict['questionRequestAnswers'] = answerList
+            tmpList.append(tmpDict)
+
+        return HttpResponse(json.dumps(tmpList), content_type="application/json")
+    except Exception as ex:
+        print('error occured :', ex)

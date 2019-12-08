@@ -1,0 +1,36 @@
+.left-align {
+    text-align: left;
+}
+
+.right-align {
+    text-align: right;
+}
+
+.left-side-bubble{
+    width:70%;
+    border-radius: 10px;
+    word-break: break-word;
+    background-color:lightpink;
+    margin: 10px 5px;
+}
+
+.right-side-bubble{
+    float:right;
+    width:70%;
+    border-radius: 10px;
+    word-break: break-word;
+    background-color:lightskyblue;
+}
+
+.angle-chatting{
+    border: 1px dashed rebeccapurple;
+    border-radius: 5px;
+}
+
+.angle-invisible{
+    display:block;
+}
+
+.angle-write{
+    display: block;
+}

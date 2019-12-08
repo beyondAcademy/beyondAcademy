@@ -1,72 +1,260 @@
 {% extends 'graduateProject/base/base.html' %}
 
 {% block content %}
-{% include 'graduateProject/inc/liveinterview/liveinterview_list.html' %}
+    {% include 'graduateProject/inc/liveinterview/liveinterview_list.html' %}
 
-<div class="container">
-
-<div class="container">
-    <div class="row">
-        <table class="table table-striped table-context">
-            <thead>
-            <tr class="tr-context">
-                <th>조회수</th>
-                <th colspan="2">제목</th>
-                <th>댓글</th>
-                <th>작성자</th>
-                <th>작성일</th>
-                <th>열람여부</th>
-            </tr>
-            </thead>
-            <tbody id="boardListTbody centered">
-            {% for interview in interviewList %}
-                {% if interview.id in selectInterviewList or user.id == interview.write_user %}
-                <tr onclick="location.href='{% url 'liveinterviewView' interview.id %}'">
-                {% else %}
-                <tr onclick="interviewSelectOnclick({{ interview.id }})">
-                {% endif %}
-                    <td>
-                        {{ interview.read_count }}
-                    </td>
-                    <td colspan="2">
-                        {{ interview.title }}
-                    </td>
-                    <td>
-                        {{ interview.replyCount }}
-                    </td>
-                    <td>
-                        {{ interview.write_user__last_name }}
-                    </td>
-                    <td>
-                        {{ interview.write_dttm }}
-                    </td>
-                    <td>
-
-                    </td>
+    <div class="context-container">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="wrapper-checkbox">
+                    <h3>직군</h3>
+                    <div class="checkboxes">
+                        <div class="row">
+                            {% for field in fields %}
+                                <div class="col-4">
+                                    <input type="checkbox" name="fields" id="field-{{ field.key }}"
+                                           onChange="checkboxOnchange()">
+                                    <label for="field-{{ field.key }}" class="font-scailing">{{ field.val }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="wrapper-checkbox">
+                    <h3>역할</h3>
+                    <div class="checkboxes">
+                        <div class="row">
+                            {% for lifestyle in lifestyles %}
+                                <div class="col-4">
+                                    <input type="checkbox" name="lifestyles" id="life-style-{{ lifestyle.key }}"
+                                           onclick='checkboxOnchange()'>
+                                    <label for="life-style-{{ lifestyle.key }}"
+                                           class="font-scailing">{{ lifestyle.val }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <div class="wrapper-checkbox">
+                    <h3>직무</h3>
+                    <div class="checkboxes">
+                        <div class="row">
+                            {% for tasktype in tasktypes %}
+                                <div class="col-4">
+                                    <input type="checkbox" name="tasktypes" id="task-type-{{ tasktype.key }}"
+                                           onclick='checkboxOnchange()'>
+                                    <label for="task-type-{{ tasktype.key }}"
+                                           class="font-scailing">{{ tasktype.val }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-striped table-context">
+                <thead>
+                <tr class="tr-context">
+                    <th>조회수</th>
+                    <th colspan="2">제목</th>
+                    <th>댓글</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>크레딧</th>
+                    <th>열람여부</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="boardListTbody">
+                {% for interview in interviewList %}
+                    {% if interview.id in selectInterviewList or user.id == interview.write_user %}
+                        <tr onclick="location.href='{% url 'liveinterviewView' interview.id %}'">
+                            {% else %}
+                        <tr onclick="interviewSelectOnclick({{ interview.id }})">
+                    {% endif %}
+                <td>
+                    {{ interview.read_count }}
+                </td>
+                <td colspan="2">
+                    {{ interview.title }}
+                </td>
+                <td>
+                    {{ interview.replyCount }}
+                </td>
+                <td>
+                    {{ interview.write_user__last_name }}
+                </td>
+                <td>
+                    {{ interview.write_dttm }}
+                </td>
+                <td>
+                    {{ interview.amount }}
+                </td>
+                {% if interview.id in selectInterviewList or user.id == interview.write_user %}
+                    <td class="liveinterview-read">입장하기</td>
+                {% else %}
+                    <td class="liveinterview-select">채택하기</td>
+                {% endif %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-        <div class="text-center">
-            <nav aria-label="...">
-                <ul class="pagination" id="pagination">
-                </ul>
+            <div class="text-center">
                 <a href="{% url 'liveinterviewWrite' %}" class="btn btn-primary pull-right">글쓰기</a>
+            </div>
         </div>
     </div>
-</div>
 
+    <script type="text/javascript">
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
 
-</div>
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
 
-<script type="text/javascript">
-    function interviewSelectOnclick(interviewId){
-        var timestamp = new Date().getTime()
-        timestamp = timestamp.toString();
-        window.location.href = '/liveinterviewSelect/' + interviewId + '/' + {{ user.id }} + '/' + timestamp;
-    }
-</script>
+        $(document).ready(function () {
+            var csrftoken = getCookie('csrftoken');
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+        });
+
+        function interviewSelectOnclick(interviewId) {
+            var timestamp = new Date().getTime()
+            timestamp = timestamp.toString();
+
+            $.ajax({
+                type: 'POST',
+                url: '/liveinterviewSelect',
+                data: {
+                    'timestamp': timestamp,
+                    'interviewId': interviewId,
+                    'id': {{ user.id }}
+                },
+                success: function (data) {
+                    alert(data);
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("arjax error : " + textStatus + "\n" + errorThrown);
+                },
+            });
+
+            {#window.location.href = '/liveinterviewSelect/' + interviewId + '/' + {{ user.id }} +'/' + timestamp;#}
+        }
+
+        function checkboxOnchange() {
+            var fields = [];
+            $('input[name="fields"]:checked').each(function (index) {
+                var bChecked = $(this).prop('checked');
+                var id = $(this).attr('id');
+                var value = $(this).val();
+                fields.push('[' + index + '](' + bChecked + ')' + id + ':' + value);
+            });
+
+            var tasktypes = [];
+            $('input[name="tasktypes"]:checked').each(function (index) {
+                var bChecked = $(this).prop('checked');
+                var id = $(this).attr('id');
+                var value = $(this).val();
+                tasktypes.push('[' + index + '](' + bChecked + ')' + id + ':' + value);
+            });
+
+            var lifestyles = [];
+            $('input[name="lifestyles"]:checked').each(function (index) {
+                var bChecked = $(this).prop('checked');
+                var id = $(this).attr('id');
+                var value = $(this).val();
+                lifestyles.push('[' + index + '](' + bChecked + ')' + id + ':' + value);
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '/liveinterviewCheckbox',
+                data: {
+                    'fields': fields,
+                    'tasktypes': tasktypes,
+                    'lifestyles': lifestyles
+                },
+                success: function (data) {
+                    checkboxAjaxSuccess(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("arjax error : " + textStatus + "\n" + errorThrown);
+                },
+            });
+        }
+
+        function viewLiveinterview(liveinterviewId){
+            location.href='/liveinterviewView/'+liveinterviewId
+        }
+
+        function checkboxAjaxSuccess(liveinterviewList) {
+            tmpArray = {{ selectInterviewList }};
+            tmpUserId = {{ user.id }};
+
+            context = '';
+            for (var i = 0; i < liveinterviewList.length; i++) {
+                context += '<tr>';
+                if (tmpArray.includes(liveinterviewList[i].id) || tmpUserId == liveinterviewList[i].write_user) {
+                    context += '<tr onclick="viewLiveinterview('+liveinterviewList[i].id+')">';
+                }
+                else {
+                    context += '<tr onclick="interviewSelectOnclick('+liveinterviewList[i].id+')">'
+                }
+                context += '<td>';
+                context += liveinterviewList[i].read_count;
+                context += '</td>';
+                context += '<td colspan="2">';
+                context += liveinterviewList[i].title;
+                context += '</td>';
+                context += '<td>';
+                context += liveinterviewList[i].reply_count;
+                context += '</td>';
+                context += '<td>';
+                context += liveinterviewList[i].write_user__last_name;
+                context += '</td>';
+                context += '<td>';
+                context += liveinterviewList[i].write_dttm;
+                context += '</td>';
+                context += '<td>';
+                context += liveinterviewList[i].amount;
+                context += '</td>';
+                if (tmpArray.includes(liveinterviewList[i].id) || tmpUserId == liveinterviewList[i].write_user) {
+                    context += '<td class="liveinterview-read">입장하기</td>';
+                }
+                else {
+                    context += '<td class="liveinterview-select">채택하기</td>'
+                }
+                context += '</tr>';
+            }
+            $('#boardListTbody').html(context);
+        }
+
+    </script>
 
 
 {% endblock %}

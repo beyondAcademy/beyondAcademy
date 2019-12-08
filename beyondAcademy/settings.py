@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'storages',
     'graduateProject',
     'django_summernote',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
@@ -80,14 +81,30 @@ WSGI_APPLICATION = 'beyondAcademy.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 
+##beyondAcademy
+# DATABASES = {
+#     'default' : {
+#         'ENGINE' : 'django.db.backends.mysql',
+#         'NAME' : 'beyondAcademy',
+#         'USER' : 'beyondAcademy',
+#         'PASSWORD' : 'beyondACADEMY2019!2)!',
+#         'PORT' : '3306',
+#         'HOST' : 'beyondacademy.ccjqwu8rb71u.ap-northeast-2.rds.amazonaws.com',
+#         'OPTIONS' : {
+#             'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
+
+##savers
 DATABASES = {
     'default' : {
         'ENGINE' : 'django.db.backends.mysql',
-        'NAME' : 'beyondAcademy',
-        'USER' : 'beyondAcademy',
-        'PASSWORD' : 'beyondACADEMY2019!2)!',
+        'NAME' : 'graduateProject',
+        'USER' : 'expLib',
+        'PASSWORD' : 'Exp2019!!!*',
         'PORT' : '3306',
-        'HOST' : 'beyondacademy.ccjqwu8rb71u.ap-northeast-2.rds.amazonaws.com',
+        'HOST' : 'explib.csollbv8rpjq.ap-northeast-2.rds.amazonaws.com',
         'OPTIONS' : {
             'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'",
         },
